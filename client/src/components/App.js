@@ -3,7 +3,8 @@ import { Router } from "@reach/router";
 import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
-import Skeleton from "./pages/Skeleton.js";
+import NavBar from "./modules/NavBar.js";
+import Queues from "./pages/Queues.js";
 
 import "../utilities.css";
 
@@ -43,10 +44,17 @@ const App = () => {
 
   return (
     <>
-      <Router>
-        <Skeleton path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-        <NotFound default />
-      </Router>
+      <NavBar
+        handleLogin={handleLogin}
+        handleLogout={handleLogout}
+        userId={userId}
+      />
+      <div className="App-container">
+        <Router>
+          <Queues path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+          <NotFound default />
+        </Router>
+      </div>
     </>
   );
 };

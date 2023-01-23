@@ -1,46 +1,132 @@
-import React from "react";
-import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
+import React, { useState, useEffect } from "react";
 
+import ActiveQueue from "../modules/ActiveQueue.js";
+// import QueueList from "../modules/QueueList.js";
 import "../../utilities.css";
-import "./Skeleton.css";
+import "./Queues.css";
 
 const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.googleusercontent.com";
 
-const Skeleton = ({ userId, handleLogin, handleLogout }) => {
+const data = {
+  items: [
+    { position: 1, players: ["Brady", "Peter"] },
+    { position: 2, players: ["Siegel", "Tgod"] },
+    { position: 3, players: ["Mango", "Mongo"] },
+  ],
+};
+
+/**
+ * Page component to display when at the "/chat" route
+ *
+ * Proptypes
+ * @param {string} userId id of current logged in user
+ */
+
+const Queues = (props) => {
+  /**
+   * @typedef UserObject
+   * @property {string} _id
+   * @property {string} name
+   */
+  /**
+   * @typedef ItemObject
+   * @property {number} position
+   * @property {string[]} players
+   */
+  /**
+   * @typedef QueueData
+   * @property {ItemObject[]} items
+   */
+
+  // const [activeQueues, setActiveQueues] = useState([]);
+  // this won't matter until game types are dynamic and new queues can be added
+
+  // const [activeQueue, setActiveQueue] = useState({
+  // });
+
+  // const loadActiveQueue = () => {
+  //   // get("/api/chat", { recipient_id: recipient._id }).then((messages) => {
+  //   //   setActiveChat({
+  //   //     recipient: recipient,
+  //   //     messages: messages,
+  //   //   });
+  //   // });
+  // };
+
+  // const addMessages = (data) => {
+  //   // TODO (step 9.2) If the messages don't belong in the currently active
+  //   // chat, don't add them to the state!
+  //   setActiveChat((prevActiveChat) => ({
+  //     recipient: prevActiveChat.recipient,
+  //     messages: prevActiveChat.messages.concat(data),
+  //   }));
+  // };
+
+  useEffect(() => {
+    document.title = "Queues";
+  }, []);
+
+  // useEffect(() => {
+  //   loadMessageHistory(activeChat.recipient);
+  // }, [activeChat.recipient._id]);
+
+  // useEffect(() => {
+  //   get("/api/activeUsers").then((data) => {
+  //     // If user is logged in, we load their chats. If they are not logged in,
+  //     // there's nothing to load. (Also prevents data races with socket event)
+  //     if (props.userId) {
+  //       setActiveUsers([ALL_CHAT].concat(data.activeUsers));
+  //     }
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   socket.on("message", addMessages);
+  //   return () => {
+  //     socket.off("message", addMessages);
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   // const callback = (data) => {
+  //   //   setActiveUsers([ALL_CHAT].concat(data.activeUsers));
+  //   // };
+  //   // socket.on("activeUsers", callback);
+  //   // return () => {
+  //   //   socket.off("activeUsers", callback);
+  //   // };
+  // }, []);
+
+  // const setActiveUser = (user) => {
+  //   if (user._id !== activeChat.recipient._id) {
+  //     setActiveChat({
+  //       recipient: user,
+  //       messages: [],
+  //     });
+  //   }
+  // };
+
+  if (!props.userId) {
+    return <div>Log in before using Chatbook</div>;
+  }
+  // console.log("data: ", data)
   return (
-    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      {userId ? (
-        <button
-          onClick={() => {
-            googleLogout();
-            handleLogout();
-          }}
-        >
-          Logout
-        </button>
-      ) : (
-        <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
-      )}
-      <h1>Good luck on your project :)</h1>
-      <h2> What you need to change in this skeleton</h2>
-      <ul>
-        <li>
-          Change the Frontend CLIENT_ID (Skeleton.js) to your team's CLIENT_ID (obtain this at
-          http://weblab.us/clientid)
-        </li>
-        <li>Change the Server CLIENT_ID to the same CLIENT_ID (auth.js)</li>
-        <li>
-          Change the Database SRV (mongoConnectionURL) for Atlas (server.js). You got this in the
-          MongoDB setup.
-        </li>
-        <li>Change the Database Name for MongoDB to whatever you put in the SRV (server.js)</li>
-      </ul>
-      <h2>How to go from this skeleton to our actual app</h2>
-      <a href="https://docs.google.com/document/d/110JdHAn3Wnp3_AyQLkqH2W8h5oby7OVsYIeHYSiUzRs/edit?usp=sharing">
-        Check out this getting started guide
-      </a>
-    </GoogleOAuthProvider>
+    <>
+      <div className="u-flex u-relative Queues-container">
+        {/* <div className="Queues-queueList">
+          <ChatList
+            setActiveUser={setActiveUser}
+            userId={props.userId}
+            users={activeUsers}
+            active={activeChat.recipient}
+          />
+        </div> */}
+        <div className="Queues-queueContainer u-relative">
+          <ActiveQueue data={data} />
+        </div>
+      </div>
+    </>
   );
 };
 
-export default Skeleton;
+export default Queues;

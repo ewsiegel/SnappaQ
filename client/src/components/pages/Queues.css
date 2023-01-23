@@ -1,0 +1,14 @@
+.Queues-container {
+  height: calc(100vh - 120px);
+  width: 100%;
+}
+
+.Queues-queueList {
+  flex: 0 0 220px;
+  margin-right: var(--l);
+}
+
+.Queues-queueContainer {
+  flex-grow: 1;
+  overflow-x: hidden;
+}
