@@ -9,7 +9,7 @@ import "./SingleItem.css";
  * @param {ItemObject} item
  */
 const SingleItem = (props) => {
-  console.log(props);
+  // console.log(props);
   return (
     <div className={"u-flex u-flex-alignCenter SingleItem-container"}>
       <span className="SingleItem-position u-bold">{props.position + ":"}</span>

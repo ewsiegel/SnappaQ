@@ -1,0 +1,35 @@
+.Active-container {
+  height: 100%;
+  /* max-width: 75%; */
+}
+
+.Active-header {
+  background-color: var(--primary);
+  color: var(--white);
+  padding: var(--xs) var(--s);
+}
+
+.Active-newContainer {
+  width: 100%;
+}
+
+.Active-oldContainer {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.Active-endGameButtonContainer {
+  height: auto;
+}
+
+.Active-endGameButton {
+  font-size: 14px;
+  padding: var(--s) var(--m);
+  background-color: rgb(218, 85, 85);
+  flex-grow: 1;
+  align-items: center;
+  width: 150px;
+  padding: var(--s) var(--m);
+  border-radius: var(--l);
+}

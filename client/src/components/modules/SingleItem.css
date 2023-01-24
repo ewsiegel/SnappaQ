@@ -4,16 +4,35 @@
 }
 
 .SingleItem-position {
-  width: 106px;
-  margin-right: var(--xs);
-  flex-shrink: 0;
+  width: var(--xl);
+  /* margin-right: var(--m); */
+  flex-shrink: 1;
 }
 
 .SingleItem-players {
+  width: 150px;
   padding: var(--s) var(--m);
   background: var(--medgrey);
   border-radius: var(--l);
-  flex-shrink: 1;
+  flex-shrink: 0;
+  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+.SingleItem-edit {
+  padding: var(--s) var(--m);
+  background: var(--medgrey);
+  border-radius: var(--l);
+  flex-shrink: 0;
+  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+.SingleItem-del {
+  padding: var(--s) var(--m);
+  background: var(--medgrey);
+  border-radius: var(--l);
+  flex-shrink: 0;
   overflow-wrap: break-word;
   overflow-wrap: anywhere;
 }
