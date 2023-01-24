@@ -6,6 +6,13 @@
   .NavBar-title {
     color: var(--white);
     font-size: 20px;
+    font-weight: light;
+  }
+
+  .NavBar-title-red {
+    color: #ffa4a4;
+    font-size: 20px;
+    font-weight: bolder;
   }
   
   .NavBar-linkContainer {
@@ -17,6 +24,7 @@
     color: var(--white);
     opacity: 0.6;
     text-decoration: none;
+    padding: 0px var(--m)
   }
   
   .NavBar-link:hover {

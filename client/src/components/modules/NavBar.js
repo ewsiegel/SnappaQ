@@ -15,7 +15,9 @@ const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.goo
 const NavBar = (props) => {
   return (
     <nav className="NavBar-container">
-      <div className="NavBar-title u-inlineBlock">SnappaQ</div>
+      <img src="../../../dist/favicon.ico" alt="Dice" />
+      <div className="NavBar-title u-inlineBlock">Snappa</div>
+      <div className="NavBar-title-red u-inlineBlock">Q</div>
       <div className="NavBar-linkContainer u-inlineBlock">
         {/* <Link to="/" className="NavBar-link">
           Home
