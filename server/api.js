@@ -23,6 +23,8 @@ const socketManager = require("./server-socket");
 
 const Profile = require("./models/profile");
 
+import state from './state'
+
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
 router.get("/whoami", (req, res) => {
@@ -51,6 +53,8 @@ router.get("/profile", (req, res) => {
     res.send(profile);
   });
 });
+
+
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
