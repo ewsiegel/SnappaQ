@@ -6,11 +6,18 @@ import ActiveGame from "../modules/ActiveGame.js";
 import "./Active.css";
 import "./SingleItem.css";
 
+const endGame = () => {
+    console.log("need to implement endGame function")
+}
+
+
 const Active = (props) => {
+
   const handleEndGame = (event) => {
     console.log("game over");
     event.preventDefault();
-    props.onSubmit && props.onSubmit([player1, player2]);
+    // props.onSubmit && props.onSubmit([player1, player2]);
+    endGame();
   };
 
   return (
