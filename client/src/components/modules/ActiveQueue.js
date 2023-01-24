@@ -37,7 +37,7 @@ const ActiveQueue = (props) => {
         ))}
       </div>
       <div className="Active-newItemContainer">
-        <NewItem players={props.data} />
+        <NewItem players={props.data} callback={props.callback} />
       </div>
     </>
   );

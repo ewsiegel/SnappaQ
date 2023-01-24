@@ -63,7 +63,7 @@ router.get("/profiles", (req, res) => {
 });
 
 function sendGameState(res) {
-  res.send({gameType: state.gameName, activeGame: state.activeGame, queue: state.queue, queueList: state.queue.list});
+  res.send({gameType: state.gameName, activeGame: state.activeGame, queue: state.queue.list});
 }
 
 //add to queue
@@ -80,6 +80,10 @@ router.post("/completegame", (req, res) => {
 
 router.post("/clearqueue", (req, res) => {
   state.clearQueue();
+  sendGameState(res);
+});
+
+router.get("/queues", (req, res) => {
   sendGameState(res);
 });
 

@@ -7,16 +7,6 @@ import "./Active.css";
 import "./SingleItem.css";
 import { post } from "../../utilities.js";
 
-const endGame = () => {
-    console.log("need to implement endGame function")
-    post("/api/completegame");
-}
-
-const clearAll = () => {
-    console.log("need to implement clearAll function")
-    post("/api/clearqueue");
-}
-
 
 const Active = (props) => {
 
@@ -24,13 +14,15 @@ const Active = (props) => {
     console.log("game over");
     event.preventDefault();
     // props.onSubmit && props.onSubmit([player1, player2]);
-    endGame();
+    post("/api/completegame");
+    props.callback();
   };
 
   const handleClearAll = (event) => {
     console.log("clearing all");
     event.preventDefault();
-    clearAll();
+    post("/api/clearqueue");
+    props.callback();
   }
 
   return (
@@ -48,7 +40,7 @@ const Active = (props) => {
           End Game
         </button>
       </div>
-      <ActiveQueue data={props.data} />
+      <ActiveQueue data={props.data} callback={props.callback} />
       <div className="Active-clearQueueButtonContainer">
         <button
           type="clearAll"

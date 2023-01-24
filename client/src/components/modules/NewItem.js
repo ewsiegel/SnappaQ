@@ -29,8 +29,8 @@ const NewItemInput = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     props.onSubmit && props.onSubmit([player1, player2]);
-    setPlayer1("Need 1");
-    setPlayer2("Need 1");
+    setPlayer1("");
+    setPlayer2("");
   };
 
   return (
@@ -70,9 +70,13 @@ const NewItemInput = (props) => {
 const NewItem = (props) => {
   const addItem = (players) => {
     const body = {
-      team: players
+      team: players.map((elm => {
+        if (elm === "") return "Need 1";
+        else return elm;
+      }))
     };
     post("/api/appendqueue", body);
+    props.callback();
   };
 
   console.log("props: ", props)
