@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 
-import ActiveQueue from "../modules/ActiveQueue.js";
+import Active from "../modules/Active.js";
 // import QueueList from "../modules/QueueList.js";
 import "../../utilities.css";
 import "./Queues.css";
 
 const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.googleusercontent.com";
+
+const activeData = {
+  items: [
+    { position: 1, players: ["fee", "foo"] },
+    { position: 2, players: ["pee", "poo"] },
+  ],
+};
 
 const data = {
   items: [
@@ -121,8 +128,16 @@ const Queues = (props) => {
             active={activeChat.recipient}
           />
         </div> */}
-        <div className="Queues-queueContainer u-relative">
-          <ActiveQueue data={data} />
+        {/* <div className="Queues-activeContainer u-relative">
+          <div className="Queues-queueContainer">
+            <ActiveGame data={activeData} />
+          </div>
+          <div className="Queues-queueContainer">
+            <ActiveQueue data={data} />
+          </div>
+        </div> */}
+        <div className="Queues-queueContainer">
+          <Active activeData={activeData} data={data} />
         </div>
       </div>
     </>

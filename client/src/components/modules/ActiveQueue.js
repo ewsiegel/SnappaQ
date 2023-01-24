@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SingleItem from "../modules/SingleItem.js";
 import { NewItem } from "../modules/NewItem.js";
 
-import "./ActiveQueue.css";
+import "./Active.css";
 
 /**
  * @typedef UserObject
@@ -29,14 +29,14 @@ import "./ActiveQueue.css";
 const ActiveQueue = (props) => {
   // console.log("props: ", props.data.items);
   return (
-    <div className="u-flexColumn u-flex-alignCenter ActiveQueue-container">
-      <h3>Snappa</h3>
-      <div className="ActiveQueue-oldItemContainer">
+    <div className="u-flexColumn u-flex-alignCenter Active-container">
+      <h3>Queue</h3>
+      <div className="Active-oldItemContainer">
         {props.data.items.map((obj) => (
           <SingleItem position={obj.position} players={obj.players} />
         ))}
       </div>
-      <div className="ActiveQueue-newItemContainer">
+      <div className="Active-newItemContainer">
         <NewItem players={props.data} />
       </div>
     </div>
