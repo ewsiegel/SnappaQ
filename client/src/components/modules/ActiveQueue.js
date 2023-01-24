@@ -29,7 +29,7 @@ import "./Active.css";
 const ActiveQueue = (props) => {
   // console.log("props: ", props.data.items);
   return (
-    <div className="u-flexColumn u-flex-alignCenter Active-container">
+    <>
       <h3>Queue</h3>
       <div className="Active-oldItemContainer">
         {props.data.items.map((obj) => (
@@ -39,7 +39,7 @@ const ActiveQueue = (props) => {
       <div className="Active-newItemContainer">
         <NewItem players={props.data} />
       </div>
-    </div>
+    </>
   );
 };
 

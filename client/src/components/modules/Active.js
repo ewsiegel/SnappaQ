@@ -22,6 +22,7 @@ const Active = (props) => {
 
   return (
     <div className="u-flexColumn u-flex-alignCenter ActiveQueue-container">
+    {/* <div className="ActiveQueue-container"> */}
       <h3>Snappa</h3>
       <ActiveGame data={props.activeData} />
       <div className="Active-endGameButtonContainer">
