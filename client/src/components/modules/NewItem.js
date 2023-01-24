@@ -70,10 +70,9 @@ const NewItemInput = (props) => {
 const NewItem = (props) => {
   const addItem = (players) => {
     const body = {
-      position: props.length + 1,
-      players: players,
+      team: players
     };
-    post("/api/appendqueue", body); // PROLLY NEED TO CHANGE THIS ONCE SIEGEL IS DONE WITH BACKEND STUFF
+    post("/api/appendqueue", body);
   };
 
   console.log("props: ", props)

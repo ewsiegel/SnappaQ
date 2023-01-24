@@ -5,13 +5,16 @@ import ActiveGame from "../modules/ActiveGame.js";
 
 import "./Active.css";
 import "./SingleItem.css";
+import { post } from "../../utilities.js";
 
 const endGame = () => {
     console.log("need to implement endGame function")
+    post("/api/completegame");
 }
 
 const clearAll = () => {
     console.log("need to implement clearAll function")
+    post("/api/clearqueue");
 }
 
 
