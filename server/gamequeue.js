@@ -46,12 +46,18 @@ class GameQueue {
         if (this.gameActive()) {
             console.log("Completed game between", this.activeGame.team1, "and", this.activeGame.team2);
             // team 1 loses
-            Game.findOneAndUpdate({gameId: this.activeGame.id}, {state: "complete", winners: this.activeGame.team1, losers: this.activeGame.team2});
+            Game.findOneAndUpdate({gameId: this.activeGame.id}, {state: "complete", winners: this.activeGame.team1, losers: this.activeGame.team2}).then(() => {
+                console.log("Updated completed game in db");
+            });
             this.activeGame.team1.forEach(async (player) => {
-                Profile.findOneAndUpdate({id: player}, {$inc: {wins: 1}})
+                Profile.findOneAndUpdate({id: player}, {$inc: {wins: 1}}).then(() => {
+                    console.log("Incremented win for", player);
+                });
             });
             this.activeGame.team2.forEach(async (player) => {
-                Profile.findOneAndUpdate({id: player}, {$inc: {losses: 1}})
+                Profile.findOneAndUpdate({id: player}, {$inc: {losses: 1}}).then(() => {
+                    console.log("Incremented loss for", player);
+                });
             });  
             this.activeGame.team1 = this.activeGame.team2;
             this.activeGame.team2 = null;
