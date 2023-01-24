@@ -1,6 +1,7 @@
 .Queues-container {
   height: calc(100vh - 120px);
   width: 100%;
+  /* padding: 36px */
 }
 
 .Queues-queueList {

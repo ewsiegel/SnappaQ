@@ -1,5 +1,12 @@
 .ActiveQueue-container {
   height: 100%;
+  /* max-width: 75%; */
+}
+
+.ActiveQueue-header {
+  background-color: var(--primary);
+  color: var(--white);
+  padding: var(--xs) var(--s);
 }
 
 .ActiveQueue-newContainer {
