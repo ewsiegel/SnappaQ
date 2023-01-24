@@ -4,23 +4,47 @@ import Active from "../modules/Active.js";
 // import QueueList from "../modules/QueueList.js";
 import "../../utilities.css";
 import "./Queues.css";
+import { get, post } from "../../utilities";
 
 const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.googleusercontent.com";
 
-const activeData = {
-  items: [
-    { position: 1, players: ["fee", "foo"] },
-    { position: 2, players: ["pee", "poo"] },
-  ],
-};
+// const activeData = {
+//   items: [
+//     { position: 1, players: ["fee", "foo"] },
+//     { position: 2, players: ["pee", "poo"] },
+//   ],
+// };
 
-const data = {
-  items: [
-    { position: 1, players: ["Brady", "Peter"] },
-    { position: 2, players: ["Siegel", "Tgod"] },
-    { position: 3, players: ["Mango", "Mongo"] },
-  ],
-};
+// const data = {
+//   items: [
+//     { position: 1, players: ["Brady", "Peter"] },
+//     { position: 2, players: ["Siegel", "Tgod"] },
+//     { position: 3, players: ["Mango", "Mongo"] },
+//   ],
+// };
+
+function queueDataToProp(queuedata) {
+    let t1 = ["Need 1", "Need 1"];
+    let t2 = ["Need 1", "Need 1"];
+    if (queuedata.activeGame.team1 !== null) {
+      t1 = queuedata.activeGame.team1;
+    }
+    if (queuedata.activeGame.team2 !== null) {
+      t2 = queuedata.activeGame.team2;
+    }
+    let queuesDataObj = {activeData: {
+                      items: [{position: 1, players: t1},
+                                {position: 2, players: t2}]
+                     }, 
+                     data: {
+                      items: queuedata.queue.map((players) => {
+                        return {position: queuedata.queue.indexOf(players) + 1, players: players}
+                      })
+                     }
+                    }
+    return queuesDataObj;
+}
+
 
 /**
  * Page component to display when at the "/chat" route
@@ -50,6 +74,20 @@ const Queues = (props) => {
 
   // const [activeQueue, setActiveQueue] = useState({
   // });
+
+  const [queuesData, setQueuesData] = useState({});
+
+  function updateQueuesData() {
+    return get("/api/queues").then((queuedata) => {
+      setQueuesData(queueDataToProp(queuedata))
+    });
+  }
+
+  useEffect(() => {
+    updateQueuesData();
+  }, []);
+
+  const updateQueuesDataCallback = React.useCallback(() => updateQueuesData(), [])
 
   // const loadActiveQueue = () => {
   //   // get("/api/chat", { recipient_id: recipient._id }).then((messages) => {
@@ -114,7 +152,7 @@ const Queues = (props) => {
   // };
 
   if (!props.userId) {
-    return <div>Log in before using Chatbook</div>;
+    return <div>Log in before using SnappaQ</div>;
   }
   // console.log("data: ", data)
   return (
@@ -137,7 +175,7 @@ const Queues = (props) => {
           </div>
         </div> */}
         <div className="Queues-queueContainer">
-          <Active activeData={activeData} data={data} />
+          <Active activeData={queuesData.activeData} data={queuesData.data} callback={updateQueuesDataCallback} />
         </div>
       </div>
     </>
