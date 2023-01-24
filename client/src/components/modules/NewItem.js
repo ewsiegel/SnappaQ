@@ -29,8 +29,8 @@ const NewItemInput = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     props.onSubmit && props.onSubmit([player1, player2]);
-    setPlayer1("");
-    setPlayer2("");
+    setPlayer1("Need 1");
+    setPlayer2("Need 1");
   };
 
   return (
@@ -77,7 +77,7 @@ const NewItem = (props) => {
   };
 
   console.log("props: ", props)
-  return <NewItemInput defaultText="Need 1" onSubmit={addItem} />;
+  return <NewItemInput defaultText="Enter Player Name" onSubmit={addItem} />;
 };
 
 // export default NewItem;

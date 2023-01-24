@@ -10,6 +10,10 @@ const endGame = () => {
     console.log("need to implement endGame function")
 }
 
+const clearAll = () => {
+    console.log("need to implement clearAll function")
+}
+
 
 const Active = (props) => {
 
@@ -19,6 +23,12 @@ const Active = (props) => {
     // props.onSubmit && props.onSubmit([player1, player2]);
     endGame();
   };
+
+  const handleClearAll = (event) => {
+    console.log("clearing all");
+    event.preventDefault();
+    clearAll();
+  }
 
   return (
     <div className="u-flexColumn u-flex-alignCenter ActiveQueue-container">
@@ -36,6 +46,16 @@ const Active = (props) => {
         </button>
       </div>
       <ActiveQueue data={props.data} />
+      <div className="Active-clearQueueButtonContainer">
+        <button
+          type="clearAll"
+          className="Active-clearQueueButton u-pointer u-flex-alignCenter"
+          value="CLEAR ALL"
+          onClick={handleClearAll}
+        >
+          Clear All
+        </button>
+      </div>
     </div>
   );
 };

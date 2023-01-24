@@ -9,11 +9,12 @@
   padding: var(--xs) var(--s);
 }
 
-.Active-newContainer {
-  width: 100%;
+.Active-newItemContainer {
+  /* width: 100%; */
+  padding: var(--s)
 }
 
-.Active-oldContainer {
+.Active-oldItemContainer {
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden;
@@ -24,6 +25,21 @@
 }
 
 .Active-endGameButton {
+  font-size: 14px;
+  padding: var(--s) var(--m);
+  background-color: rgb(218, 85, 85);
+  flex-grow: 1;
+  align-items: center;
+  width: 150px;
+  padding: var(--s) var(--m);
+  border-radius: var(--l);
+}
+
+.Active-clearQueueButtonContainer {
+  height: auto;
+}
+
+.Active-clearQueueButton {
   font-size: 14px;
   padding: var(--s) var(--m);
   background-color: rgb(218, 85, 85);
