@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const GameSchema = new mongoose.Schema({
   gameType: String,
   gameId: String,
-  state: String, //active, complete, incomplete
+  state: String, //active, complete
   players: {
     team1: [String], // list of player IDs
     team2: [String], // list of player IDs

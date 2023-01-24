@@ -23,7 +23,7 @@ const socketManager = require("./server-socket");
 
 const Profile = require("./models/profile");
 
-import state from './state'
+const state = require('./state');
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -54,7 +54,34 @@ router.get("/profile", (req, res) => {
   });
 });
 
+//get all profiles
+//eventually this will take an organization argument
+router.get("/profiles", (req, res) => {
+  Profile.find({}).then((profiles) => {
+    res.send(profiles);
+  });
+});
 
+function sendGameState(res) {
+  res.send({gameType: state.gameName, activeGame: state.activeGame, queue: state.queue, queueList: state.queue.list});
+}
+
+//add to queue
+router.post("/appendqueue", (req, res) => {
+  state.append(req.body.team);
+  sendGameState(res);
+});
+
+//complete the current active game
+router.post("/completegame", (req, res) => {
+  state.completeGameLazy();
+  sendGameState(res);
+});
+
+router.post("/clearqueue", (req, res) => {
+  state.clearQueue();
+  sendGameState(res);
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

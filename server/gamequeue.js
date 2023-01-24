@@ -1,40 +1,39 @@
 const Queue = require('./queue')
 const {v4: uuidv4} = require("uuid")
+const Game = require('./models/game')
 
 class GameQueue {
-    constructor(numPlayersPerTeam) {
+    constructor(name, numPlayersPerTeam) {
         this.numPlayersPerTeam = numPlayersPerTeam;
         this.queue = new Queue();
         this.activeGame = {'team1': null, 'team2': null, 'id': null, 'timestamp': null};
+        this.gameName = name;
     }
-
-    // get activeGame() {
-    //     return this.activeGame;
-    // }
-
-    // get numPlayersPerTeam() {
-    //     return this._numPlayersPerTeam;
-    // }
-
-    // set numPlayersPerTeam(n) {
-    //     this._numPlayersPerTeam = n;
-    // }
-
-    // get queue() {
-    //     return this.queue;
-    // }
 
     gameActive() {
         return this.activeGame.id !== null;
     }
 
     tryActivateGame() {
-        //console.log(this.activeGame);
         if (!this.gameActive() && this.activeGame.team1 !== null && this.activeGame.team2 !== null)  {
             console.log("Starting game between", this.activeGame.team1, "and", this.activeGame.team2);
             this.activeGame.id = uuidv4();
             this.activeGame.timestamp = Date.now();
-            //create in database
+            let game = new Game({
+                gameType: this.gameName,
+                gameId: this.activeGame.id,
+                state: "active",
+                players: {
+                  team1: this.activeGame.team1,
+                  team2: this.activeGame.team2,
+                },
+                winners: null,
+                losers: null,
+                timestamp: this.activeGame.timestamp,
+            });
+            game.save()/*.then(() => {
+                console.log("Uploaded game to database");
+            });*/
         }
     }
 
@@ -45,8 +44,14 @@ class GameQueue {
     completeGameLazy() {
         if (this.gameActive()) {
             console.log("Completed game between", this.activeGame.team1, "and", this.activeGame.team2);
-
             // team 1 loses
+            Game.findOneAndUpdate({gameId: this.activeGame.id}, {state: "complete", winners: this.activeGame.team1, losers: this.activeGame.team2});
+            this.activeGame.team1.forEach(async (player) => {
+                Game.findOneAndUpdate({id: player}, {$inc: {wins: 1}})
+            });
+            this.activeGame.team2.forEach(async (player) => {
+                Game.findOneAndUpdate({id: player}, {$inc: {losses: 1}})
+            });  
             this.activeGame.team1 = this.activeGame.team2;
             this.activeGame.team2 = null;
             this.activeGame.id = null;
@@ -57,8 +62,6 @@ class GameQueue {
             // this.activeGame.id = null;
             // this.activeGame.timestamp = null;
 
-            //update db
-            
             this.tryDequeue();
             this.tryActivateGame();
         }
@@ -96,6 +99,15 @@ class GameQueue {
             console.log("Added a team that is not the right size");
             //return an error
         }
+    }
+
+    clearQueue() {
+        console.log("Clearing queue");
+        if (this.gameActive()) {
+            Game.deleteOne({id: this.activeGame.id});
+        }
+        this.queue = new Queue();
+        this.activeGame = {'team1': null, 'team2': null, 'id': null, 'timestamp': null};
     }
 
 }

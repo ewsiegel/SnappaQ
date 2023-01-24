@@ -60,3 +60,35 @@ const App = () => {
 };
 
 export default App;
+
+// ETHAN: Runner I used to test api
+//
+// function sleep(ms) {
+//   return new Promise(resolve => setTimeout(resolve, ms));
+// }
+// post("/api/clearqueue").then((out) => {console.log(JSON.stringify(out, null, 2))});
+// sleep(1000);
+// post("/api/appendqueue", {team: ["63c9ef918b80c1f5836ec2cc", "63c9ef918b80c1f5836ec2cc"]})
+//   .then((out) => {console.log(JSON.stringify(out, null, 2))});
+// sleep(1000);
+// post("/api/appendqueue", {team: ["63c9ef918b80c1f5836ec2cc", "63c9ef918b80c1f5836ec2cc"]})
+// .then((out) => {console.log(JSON.stringify(out, null, 2))});
+// sleep(1000);
+// post("/api/appendqueue", {team: ["63c9ef918b80c1f5836ec2cc", "63c9ef918b80c1f5836ec2cc"]})
+// .then((out) => {console.log(JSON.stringify(out, null, 2))});
+// sleep(1000);
+// post("/api/appendqueue", {team: ["63c9ef918b80c1f5836ec2cc", "63c9ef918b80c1f5836ec2cc"]})
+// .then((out) => {console.log(JSON.stringify(out, null, 2))});
+// sleep(1000);
+// post("/api/completegame")
+// .then((out) => {console.log(JSON.stringify(out, null, 2))});
+// sleep(1000);
+// post("/api/completegame")
+// .then((out) => {console.log(JSON.stringify(out, null, 2))});
+// sleep(1000);
+// post("/api/completegame")
+// .then((out) => {console.log(JSON.stringify(out, null, 2))});
+// sleep(1000);
+// post("/api/completegame")
+// .then((out) => {console.log(JSON.stringify(out, null, 2))});
+// sleep(1000);

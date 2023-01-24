@@ -21,9 +21,13 @@ class Queue {
     get size() {
       return this.rear - this.front;
     }
-    isEmpty() {
-      return this.rear == 0;
-    }   
+    get list() {
+      let l = [];
+      for (let i = this.front; i<this.rear; i++) {
+        l.push(this.items[String(i)]);
+      }
+      return l;
+    }
 }
 
 module.exports = Queue;
