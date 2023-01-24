@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "@reach/router";
 // import GoogleLogin, { GoogleLogout } from "react-google-login";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
+import die_image from '../../public/logos/SnappaQ-black.png'
 
 
 import "./NavBar.css";
@@ -15,7 +16,7 @@ const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.goo
 const NavBar = (props) => {
   return (
     <nav className="NavBar-container">
-      <img src="src/public/die.jpg" alt="die" />
+      {/* <img className="NavBar-logo" src={die_image} alt="die" /> */}
       <div className="NavBar-title u-inlineBlock">Snappa</div>
       <div className="NavBar-title-red u-inlineBlock">Q</div>
       <div className="NavBar-linkContainer u-inlineBlock">
