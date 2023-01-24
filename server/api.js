@@ -45,6 +45,7 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+//get profile info
 router.get("/profile", (req, res) => {
   Profile.findOne({id: req.query.userid}).then((profile) => {
     res.send(profile);
