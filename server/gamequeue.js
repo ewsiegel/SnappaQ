@@ -1,6 +1,7 @@
 const Queue = require('./queue')
 const {v4: uuidv4} = require("uuid")
 const Game = require('./models/game')
+const Profile = require('./models/profile')
 
 class GameQueue {
     constructor(name, numPlayersPerTeam) {
@@ -47,10 +48,10 @@ class GameQueue {
             // team 1 loses
             Game.findOneAndUpdate({gameId: this.activeGame.id}, {state: "complete", winners: this.activeGame.team1, losers: this.activeGame.team2});
             this.activeGame.team1.forEach(async (player) => {
-                Game.findOneAndUpdate({id: player}, {$inc: {wins: 1}})
+                Profile.findOneAndUpdate({id: player}, {$inc: {wins: 1}})
             });
             this.activeGame.team2.forEach(async (player) => {
-                Game.findOneAndUpdate({id: player}, {$inc: {losses: 1}})
+                Profile.findOneAndUpdate({id: player}, {$inc: {losses: 1}})
             });  
             this.activeGame.team1 = this.activeGame.team2;
             this.activeGame.team2 = null;
