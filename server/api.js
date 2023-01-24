@@ -21,6 +21,10 @@ const router = express.Router();
 //initialize socket
 const socketManager = require("./server-socket");
 
+const Profile = require("./models/profile");
+
+const state = require('./state');
+
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
 router.get("/whoami", (req, res) => {
@@ -42,6 +46,42 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+
+//get profile info
+router.get("/profile", (req, res) => {
+  Profile.findOne({id: req.query.userid}).then((profile) => {
+    res.send(profile);
+  });
+});
+
+//get all profiles
+//eventually this will take an organization argument
+router.get("/profiles", (req, res) => {
+  Profile.find({}).then((profiles) => {
+    res.send(profiles);
+  });
+});
+
+function sendGameState(res) {
+  res.send({gameType: state.gameName, activeGame: state.activeGame, queue: state.queue, queueList: state.queue.list});
+}
+
+//add to queue
+router.post("/appendqueue", (req, res) => {
+  state.append(req.body.team);
+  sendGameState(res);
+});
+
+//complete the current active game
+router.post("/completegame", (req, res) => {
+  state.completeGameLazy();
+  sendGameState(res);
+});
+
+router.post("/clearqueue", (req, res) => {
+  state.clearQueue();
+  sendGameState(res);
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
