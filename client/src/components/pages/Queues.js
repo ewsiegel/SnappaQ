@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Active from "../modules/Active.js";
-// import QueueList from "../modules/QueueList.js";
+import QueueList from "../modules/QueueList.js";
 import "../../utilities.css";
 import "./Queues.css";
 import { get, post } from "../../utilities";
@@ -143,9 +143,9 @@ const Queues = (props) => {
   //   }
   // };
 
-  if (!props.userId) {
-    return <div>Log in before using SnappaQ</div>;
-  }
+  // if (!props.userId) {
+  //   return <div>Log in before using SnappaQ</div>;
+  // }
   if (queuesData === null) {
     return <div>Loading</div>;
   }
