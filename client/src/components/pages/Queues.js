@@ -24,19 +24,21 @@ const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.goo
 // };
 
 function queueDataToProp(queuedata) {
-    let queuesDataObj = {activeData: {
-                      items: [{position: 1, players: queuedata.activeGame.team1},
-                                {position: 2, players: queuedata.activeGame.team2}]
-                     }, 
-                     data: {
-                      items: queuedata.queue.map((players) => {
-                        return {position: queuedata.queue.indexOf(players) + 1, players: players}
-                      })
-                     }
-                    }
-    return queuesDataObj;
+  let queuesDataObj = {
+    activeData: {
+      items: [
+        { position: 1, players: queuedata.activeGame.team1 },
+        { position: 2, players: queuedata.activeGame.team2 },
+      ],
+    },
+    data: {
+      items: queuedata.queue.map((players) => {
+        return { position: queuedata.queue.indexOf(players) + 1, players: players };
+      }),
+    },
+  };
+  return queuesDataObj;
 }
-
 
 /**
  * Page component to display when at the "/chat" route
@@ -61,20 +63,18 @@ const Queues = (props) => {
    * @property {ItemObject[]} items
    */
 
-  const [activeQueues, setActiveQueues] = useState([
-    "Snappa", "Beer Die", "Pool", "Darts"
-  ]);
+  const [activeQueues, setActiveQueues] = useState(["Snappa", "Beer Die", "Pool", "Darts"]);
   // this won't matter until game types are dynamic and new queues can be added
 
   const [activeQueue, setActiveQueue] = useState({
-    name: "Snappa" // defaults activeQueue to Snappa
+    name: "Snappa", // defaults activeQueue to Snappa
   });
 
   const [queuesData, setQueuesData] = useState(null);
 
   function updateQueuesData() {
     return get("/api/queues").then((queuedata) => {
-      setQueuesData(queueDataToProp(queuedata))
+      setQueuesData(queueDataToProp(queuedata));
     });
   }
 
@@ -82,7 +82,7 @@ const Queues = (props) => {
     updateQueuesData();
   }, []);
 
-  const updateQueuesDataCallback = React.useCallback(() => updateQueuesData(), [])
+  const updateQueuesDataCallback = React.useCallback(() => updateQueuesData(), []);
 
   // const loadActiveQueue = () => {
   //   // get("/api/chat", { recipient_id: recipient._id }).then((messages) => {
@@ -172,7 +172,11 @@ const Queues = (props) => {
           </div>
         </div> */}
         <div className="Queues-queueContainer">
-          <Active activeData={queuesData.activeData} data={queuesData.data} callback={updateQueuesDataCallback} />
+          <Active
+            activeData={queuesData.activeData}
+            data={queuesData.data}
+            callback={updateQueuesDataCallback}
+          />
         </div>
       </div>
     </>
