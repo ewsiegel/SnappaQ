@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import NotFound from "./pages/NotFound.js";
 import NavBar from "./modules/NavBar.js";
 import Queues from "./pages/Queues.js";
+import Profile from "./pages/Profile.js"
 
 import "../utilities.css";
 
@@ -12,9 +13,6 @@ import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
 
-/**
- * Define the "App" component
- */
 const App = () => {
   const [userId, setUserId] = useState(undefined);
 
@@ -52,6 +50,7 @@ const App = () => {
       <div className="App-container">
         <Router>
           <Queues path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+          <Profile path="/profile/" userId={userId} />
           <NotFound default />
         </Router>
       </div>
@@ -60,35 +59,3 @@ const App = () => {
 };
 
 export default App;
-
-// ETHAN: Runner I used to test api
-//
-// function sleep(ms) {
-//   return new Promise(resolve => setTimeout(resolve, ms));
-// }
-// post("/api/clearqueue").then((out) => {console.log(JSON.stringify(out, null, 2))});
-// sleep(1000);
-// post("/api/appendqueue", {team: ["63c9ef918b80c1f5836ec2cc", "63c9ef918b80c1f5836ec2cc"]})
-//   .then((out) => {console.log(JSON.stringify(out, null, 2))});
-// sleep(1000);
-// post("/api/appendqueue", {team: ["63c9ef918b80c1f5836ec2cc", "63c9ef918b80c1f5836ec2cc"]})
-// .then((out) => {console.log(JSON.stringify(out, null, 2))});
-// sleep(1000);
-// post("/api/appendqueue", {team: ["63c9ef918b80c1f5836ec2cc", "63c9ef918b80c1f5836ec2cc"]})
-// .then((out) => {console.log(JSON.stringify(out, null, 2))});
-// sleep(1000);
-// post("/api/appendqueue", {team: ["63c9ef918b80c1f5836ec2cc", "63c9ef918b80c1f5836ec2cc"]})
-// .then((out) => {console.log(JSON.stringify(out, null, 2))});
-// sleep(1000);
-// post("/api/completegame")
-// .then((out) => {console.log(JSON.stringify(out, null, 2))});
-// sleep(1000);
-// post("/api/completegame")
-// .then((out) => {console.log(JSON.stringify(out, null, 2))});
-// sleep(1000);
-// post("/api/completegame")
-// .then((out) => {console.log(JSON.stringify(out, null, 2))});
-// sleep(1000);
-// post("/api/completegame")
-// .then((out) => {console.log(JSON.stringify(out, null, 2))});
-// sleep(1000);
