@@ -61,11 +61,14 @@ const Queues = (props) => {
    * @property {ItemObject[]} items
    */
 
-  // const [activeQueues, setActiveQueues] = useState([]);
+  const [activeQueues, setActiveQueues] = useState([
+    "Snappa", "Beer Die", "Pool", "Darts"
+  ]);
   // this won't matter until game types are dynamic and new queues can be added
 
-  // const [activeQueue, setActiveQueue] = useState({
-  // });
+  const [activeQueue, setActiveQueue] = useState({
+    name: "Snappa" // defaults activeQueue to Snappa
+  });
 
   const [queuesData, setQueuesData] = useState(null);
 
@@ -152,14 +155,14 @@ const Queues = (props) => {
   return (
     <>
       <div className="u-flex u-relative Queues-container">
-        {/* <div className="Queues-queueList">
-          <ChatList
-            setActiveUser={setActiveUser}
+        <div className="Queues-queueList">
+          <QueueList
+            setActiveQueue={setActiveQueue}
             userId={props.userId}
-            users={activeUsers}
-            active={activeChat.recipient}
+            queues={activeQueues}
+            active={activeQueue.name}
           />
-        </div> */}
+        </div>
         {/* <div className="Queues-activeContainer u-relative">
           <div className="Queues-queueContainer">
             <ActiveGame data={activeData} />

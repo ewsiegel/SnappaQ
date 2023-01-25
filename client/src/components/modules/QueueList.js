@@ -1,4 +1,32 @@
 import React, { useState, useEffect } from "react";
-
 import SingleQueue from "../modules/SingleQueue.js";
 
+import "./SingleQueue.css";
+
+/**
+ * List of users that are online to chat with and all chat
+ *
+ * Proptypes
+ * @param {UserObject[]} queues to display
+ * @param {UserObject} active queue in chat
+ * @param {string} userId id of current logged in user (DO WE NEED TO KEEP TRACK OF THIS? DIDNT GET PASSED THRU IN CHATBOOK)
+ * @param {(UserObject) => ()} setActiveQueue function that takes in queue, sets it to active
+ */
+const QueueList = (props) => {
+    return (
+      <>
+        <h3>Open Queues</h3>
+        {props.queues
+          .map((queue, i) => ( // i will be key denoting something??
+            <SingleQueue
+              key={i}
+              setActiveQueue={props.setActiveQueue}
+              queue={queue}
+              active={queue === props.active}
+            />
+          ))}
+      </>
+    );
+  }
+  
+  export default QueueList;

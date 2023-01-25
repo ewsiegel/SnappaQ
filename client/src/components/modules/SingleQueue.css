@@ -1,0 +1,15 @@
+.SingleQueue-container {
+    background: var(--white);
+    border-radius: var(--xs);
+    padding: var(--m) var(--l);
+    margin-bottom: var(--s);
+  }
+  
+  .SingleQueue-container:hover {
+    background: var(--medgrey);
+  }
+  
+  .SingleQueue-container--active {
+    background: var(--grey);
+  }
+  
