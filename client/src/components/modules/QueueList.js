@@ -13,20 +13,28 @@ import "./SingleQueue.css";
  * @param {(UserObject) => ()} setActiveQueue function that takes in queue, sets it to active
  */
 const QueueList = (props) => {
-    return (
-      <>
-        <h3 className={"SingleQueue-header"}>Open Queues</h3>
-        {props.queues
-          .map((queue, i) => ( // i will be key denoting something??
-            <SingleQueue
-              key={i}
-              setActiveQueue={props.setActiveQueue}
-              name={queue}
-              active={queue === props.active}
-            />
-          ))}
-      </>
-    );
-  }
-  
-  export default QueueList;
+  return (
+    <>
+      <h3 className={"SingleQueue-header"}>Open Queues</h3>
+      {/* i will be key denoting something?? */}
+      {props.queues.map((queue, i) => (
+        <SingleQueue
+          key={i}
+          setActiveQueue={props.setActiveQueue}
+          name={queue}
+          active={queue === props.active}
+        />
+      ))}
+      <button
+        type="submit"
+        className="SingleQueue-button u-pointer"
+        value="Submit"
+        // onClick={}
+      >
+        Add New Queue
+      </button>
+    </>
+  );
+};
+
+export default QueueList;

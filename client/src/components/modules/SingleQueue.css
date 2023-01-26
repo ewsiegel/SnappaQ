@@ -19,3 +19,18 @@
 .SingleQueue-container--active {
   background: var(--primary--dim);
 }
+
+.SingleQueue-button {
+  color: var(--primary);
+  border: var(--primary) 1px solid;
+  border-radius: 0 var(--xs) var(--xs) 0;
+  background: var(--grey);
+  transition: color 0.1s, background 0.1s;
+  padding: var(--m) var(--l);
+  width: 100%;
+}
+
+.SingleQueue-button:hover {
+  color: var(--white);
+  background-color: var(--primary);
+}
