@@ -79,7 +79,6 @@ const NewItem = (props) => {
     props.callback();
   };
 
-  console.log("props: ", props)
   return <NewItemInput defaultText="Enter Player Name" onSubmit={addItem} />;
 };
 
