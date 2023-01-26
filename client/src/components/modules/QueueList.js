@@ -21,7 +21,7 @@ const QueueList = (props) => {
             <SingleQueue
               key={i}
               setActiveQueue={props.setActiveQueue}
-              queue={queue}
+              name={queue}
               active={queue === props.active}
             />
           ))}

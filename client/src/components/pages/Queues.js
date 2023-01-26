@@ -66,9 +66,7 @@ const Queues = (props) => {
   const [activeQueues, setActiveQueues] = useState(["Snappa", "Beer Die", "Pool", "Darts"]);
   // this won't matter until game types are dynamic and new queues can be added
 
-  const [activeQueue, setActiveQueue] = useState({
-    name: "Snappa", // defaults activeQueue to Snappa
-  });
+  const [activeQueue, setActiveQueue] = useState("Snappa");
 
   const [queuesData, setQueuesData] = useState(null);
 
@@ -173,6 +171,7 @@ const Queues = (props) => {
         </div> */}
         <div className="Queues-queueContainer">
           <Active
+            name={activeQueue}
             activeData={queuesData.activeData}
             data={queuesData.data}
             callback={updateQueuesDataCallback}

@@ -18,10 +18,11 @@ const SingleQueue = (props) => {
         "SingleQueue-container--active" : ""
         }`}
       onClick={() => {
-        props.setActiveQueue(props.queue);
+        props.setActiveQueue(props.name);
+        console.log("active queue: ", props.name)
       }}
     >
-      {props.queue}
+      {props.name}
       {console.log(props)}
     </div>
   );

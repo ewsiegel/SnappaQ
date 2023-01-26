@@ -7,6 +7,14 @@ import "./Active.css";
 import "./SingleItem.css";
 import { post } from "../../utilities.js";
 
+/**
+ * List of users that are online to chat with and all chat
+ *
+ * Proptypes
+ * @param {} name of queue to displey
+ * @param {} 
+ * @param {}
+ */
 
 const Active = (props) => {
 
@@ -28,7 +36,7 @@ const Active = (props) => {
   return (
     <div className="u-flexColumn u-flex-alignCenter ActiveQueue-container">
     {/* <div className="ActiveQueue-container"> */}
-      <h3>Snappa</h3>
+      <h3>{props.name}</h3>
       <ActiveGame data={props.activeData} />
       <div className="Active-endGameButtonContainer">
         <button
