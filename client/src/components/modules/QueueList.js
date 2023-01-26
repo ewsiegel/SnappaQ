@@ -15,7 +15,7 @@ import "./SingleQueue.css";
 const QueueList = (props) => {
     return (
       <>
-        <h3>Open Queues</h3>
+        <h3 className={"SingleQueue-header"}>Open Queues</h3>
         {props.queues
           .map((queue, i) => ( // i will be key denoting something??
             <SingleQueue
@@ -24,7 +24,10 @@ const QueueList = (props) => {
               name={queue}
               active={queue === props.active}
             />
+            // <>{console.log()}</>
           ))}
+          {console.log("queues: ", props.queues)}
+          {console.log("props.active: ", props.active)}
       </>
     );
   }

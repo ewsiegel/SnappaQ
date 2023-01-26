@@ -23,7 +23,6 @@ const SingleQueue = (props) => {
       }}
     >
       {props.name}
-      {console.log(props)}
     </div>
   );
 }

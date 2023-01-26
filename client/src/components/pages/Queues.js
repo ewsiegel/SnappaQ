@@ -144,9 +144,9 @@ const Queues = (props) => {
   //   }
   // };
 
-  // if (!props.userId) {
-  //   return <div>Log in before using SnappaQ</div>;
-  // }
+  if (!props.userId) {
+    return <div>Log in before using SnappaQ</div>;
+  }
   if (queuesData === null) {
     return <div>Loading</div>;
   }
@@ -158,7 +158,7 @@ const Queues = (props) => {
             setActiveQueue={setActiveQueue}
             userId={props.userId}
             queues={activeQueues}
-            active={activeQueue.name}
+            active={activeQueue}
           />
         </div>
         {/* <div className="Queues-activeContainer u-relative">
@@ -169,7 +169,7 @@ const Queues = (props) => {
             <ActiveQueue data={data} />
           </div>
         </div> */}
-        <div className="Queues-queueContainer">
+        <div className="Queues-queueContainer u-relative">
           <Active
             name={activeQueue}
             activeData={queuesData.activeData}
