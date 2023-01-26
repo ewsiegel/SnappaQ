@@ -19,7 +19,6 @@ const SingleQueue = (props) => {
         }`}
       onClick={() => {
         props.setActiveQueue(props.name);
-        console.log("active queue: ", props.name)
       }}
     >
       {props.name}

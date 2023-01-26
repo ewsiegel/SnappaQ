@@ -24,10 +24,7 @@ const QueueList = (props) => {
               name={queue}
               active={queue === props.active}
             />
-            // <>{console.log()}</>
           ))}
-          {console.log("queues: ", props.queues)}
-          {console.log("props.active: ", props.active)}
       </>
     );
   }
