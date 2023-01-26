@@ -161,14 +161,6 @@ const Queues = (props) => {
             active={activeQueue}
           />
         </div>
-        {/* <div className="Queues-activeContainer u-relative">
-          <div className="Queues-queueContainer">
-            <ActiveGame data={activeData} />
-          </div>
-          <div className="Queues-queueContainer">
-            <ActiveQueue data={data} />
-          </div>
-        </div> */}
         <div className="Queues-queueContainer u-relative">
           <Active
             name={activeQueue}
