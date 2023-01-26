@@ -29,7 +29,8 @@ const QueueList = (props) => {
         type="submit"
         className="SingleQueue-button u-pointer"
         value="Submit"
-        // onClick={}
+        // onClick={INSERT FUNC TO EXECUTE ON CLICK}
+        // will need to pass in setActiveQueues 
       >
         Add New Queue
       </button>
