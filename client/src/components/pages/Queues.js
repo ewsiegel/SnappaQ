@@ -4,6 +4,7 @@ import Active from "../modules/Active.js";
 import QueueList from "../modules/QueueList.js";
 import "../../utilities.css";
 import "./Queues.css";
+import { socket } from "../../client-socket.js";
 import { get, post } from "../../utilities";
 
 const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.googleusercontent.com";
@@ -63,10 +64,21 @@ const Queues = (props) => {
    * @property {ItemObject[]} items
    */
 
-  const [activeQueues, setActiveQueues] = useState(["Snappa", "Beer Die", "Pool", "Darts"]);
+  // const [activeQueues, setActiveQueues] = useState(["Snappa", "Beer Die", "Pool", "Darts"]);
+  const [activeQueues, setActiveQueues] = useState([
+    // these are the default Queue types
+    { name: "Snappa", items: [] },
+    { name: "Beer Die", items: [] },
+    { name: "Pool", items: [] },
+    { name: "Darts", items: [] },
+  ]);
   // this won't matter until game types are dynamic and new queues can be added
 
-  const [activeQueue, setActiveQueue] = useState("Snappa");
+  // const [activeQueue, setActiveQueue] = useState("Snappa");
+  const [activeQueue, setActiveQueue] = useState({
+    name: "Snappa",
+    items: [],
+  });
 
   const [queuesData, setQueuesData] = useState(null);
 
@@ -84,11 +96,11 @@ const Queues = (props) => {
 
   // WORKING ON THIS PART RN - BRAD
   // PROLLY SHOULD BE SIMILAR ASF TO updateQueuesData
-  const loadQueueHistory = (name) => {
-    get("/api/queues", {  }).then((name) => {
-      setActiveChat(name);
-    });
-  };
+  // const loadQueueHistory = (name) => {
+  //   get("/api/queues", {  }).then((name) => {
+  //     setActiveChat(name);
+  //   });
+  // };
 
   // const addMessages = (data) => {
   //   // TODO (step 9.2) If the messages don't belong in the currently active
@@ -99,8 +111,22 @@ const Queues = (props) => {
   //   }));
   // };
 
+  const addItems = (data) => {
+    setActiveQueue(prevActiveQueue => ({
+      name: prevActiveQueue.name,
+      items: prevActiveQueue.items.concat(data)
+    }));
+  };
+
   useEffect(() => {
     document.title = "Queues"; // WHAT IS THIS EVEN DOING
+  }, []);
+
+  useEffect(() => {
+    socket.on("items", addItems);
+    return () => {
+      socket.off("items", addItems);
+    };
   }, []);
 
   // useEffect(() => {
@@ -124,15 +150,26 @@ const Queues = (props) => {
   //   };
   // }, []);
 
+  // // CODE FOR UPDATING WHEN A NEW QUEUE IS ADDED - TODO
   // useEffect(() => {
-  //   // const callback = (data) => {
-  //   //   setActiveUsers([ALL_CHAT].concat(data.activeUsers));
-  //   // };
-  //   // socket.on("activeUsers", callback);
-  //   // return () => {
-  //   //   socket.off("activeUsers", callback);
-  //   // };
+  //   const callback = (data) => {
+  //     setActiveQueues([ALL_CHAT].concat(data.activeQueues));
+  //   };
+  //   socket.on("activeQueues", callback);
+  //   return () => {
+  //     socket.off("activeQueues", callback); // copy inputs from 2 lines above
+  //   };
   // }, []);
+
+  useEffect(() => {
+    const callback = (data) => {
+      setActiveQueue(data);
+    };
+    socket.on("activeQueues", callback);
+    return () => {
+      socket.off("activeQueues", callback);
+    };
+  }, []);
 
   // const setActiveUser = (user) => {
   //   if (user._id !== activeChat.recipient._id) {
