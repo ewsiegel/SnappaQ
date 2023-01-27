@@ -6,8 +6,7 @@ import "./SingleQueue.css";
  * Component to render an online user
  *
  * Proptypes
- * @param {(UserObject) => ()} setActiveUser function that takes in user,
- *  sets it to active
+ * @param {() => void} setActiveQueues function to change active Queue on button click
  * @param {UserObject} queue
  * @param {boolean} active
  */
