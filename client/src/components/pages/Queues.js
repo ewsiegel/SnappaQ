@@ -82,14 +82,13 @@ const Queues = (props) => {
 
   const updateQueuesDataCallback = React.useCallback(() => updateQueuesData(), []);
 
-  // const loadActiveQueue = () => {
-  //   // get("/api/chat", { recipient_id: recipient._id }).then((messages) => {
-  //   //   setActiveChat({
-  //   //     recipient: recipient,
-  //   //     messages: messages,
-  //   //   });
-  //   // });
-  // };
+  // WORKING ON THIS PART RN - BRAD
+  // PROLLY SHOULD BE SIMILAR ASF TO updateQueuesData
+  const loadQueueHistory = (name) => {
+    get("/api/queues", {  }).then((name) => {
+      setActiveChat(name);
+    });
+  };
 
   // const addMessages = (data) => {
   //   // TODO (step 9.2) If the messages don't belong in the currently active
@@ -101,7 +100,7 @@ const Queues = (props) => {
   // };
 
   useEffect(() => {
-    document.title = "Queues";
+    document.title = "Queues"; // WHAT IS THIS EVEN DOING
   }, []);
 
   // useEffect(() => {
