@@ -7,6 +7,7 @@ import "./SingleQueue.css";
  * List of users that are online to chat with and all chat
  *
  * Proptypes
+ * @param {() => void} setActiveQueues function to change active Queue on button click
  * @param {UserObject[]} queues to display
  * @param {UserObject} active queue in chat
  * @param {string} userId id of current logged in user (DO WE NEED TO KEEP TRACK OF THIS? DIDNT GET PASSED THRU IN CHATBOOK)
