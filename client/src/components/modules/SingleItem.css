@@ -5,11 +5,13 @@
 
 .SingleItem-position {
   width: var(--xl);
+  /* width: 10%; */
   /* margin-right: var(--m); */
   flex-shrink: 1;
 }
 
 .SingleItem-players {
+  /* width: 50%; */
   width: 150px;
   padding: var(--s) var(--m);
   background: var(--medgrey);
@@ -20,6 +22,7 @@
 }
 
 .SingleItem-edit {
+  /* width: 25%; */
   padding: var(--s) var(--m);
   background: var(--medgrey);
   border-radius: var(--l);
@@ -29,6 +32,7 @@
 }
 
 .SingleItem-del {
+  /* width: 25%; */
   padding: var(--s) var(--m);
   background: var(--medgrey);
   border-radius: var(--l);
