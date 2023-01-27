@@ -20,14 +20,14 @@ const Active = (props) => {
   const handleTeam1Wins = (event) => {
     console.log("game over");
     event.preventDefault();
-    post("/api/completegame");
+    post("/api/completegame", {winner: "team1"});
     props.callback();
   }
 
   const handleTeam2Wins = (event) => {
     console.log("game over");
     event.preventDefault();
-    post("/api/completegame");
+    post("/api/completegame", {winner: "team1"});
     props.callback();
   }
 
