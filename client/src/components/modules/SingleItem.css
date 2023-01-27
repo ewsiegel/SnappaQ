@@ -5,6 +5,7 @@
 
 .SingleItem-position {
   width: var(--xl);
+  /* width: 15%; */
   /* width: 10%; */
   /* margin-right: var(--m); */
   flex-shrink: 1;
@@ -21,18 +22,8 @@
   overflow-wrap: anywhere;
 }
 
-.SingleItem-edit {
-  /* width: 25%; */
-  padding: var(--s) var(--m);
-  background: var(--medgrey);
-  border-radius: var(--l);
-  flex-shrink: 0;
-  overflow-wrap: break-word;
-  overflow-wrap: anywhere;
-}
-
-.SingleItem-del {
-  /* width: 25%; */
+.SingleItem-button {
+  width: 20%;
   padding: var(--s) var(--m);
   background: var(--medgrey);
   border-radius: var(--l);

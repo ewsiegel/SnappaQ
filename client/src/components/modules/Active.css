@@ -18,6 +18,8 @@
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  /* width: 100%;
+  align-items: center; */
 }
 
 .Active-endGameButtonContainer {

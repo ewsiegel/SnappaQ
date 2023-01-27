@@ -9,7 +9,7 @@ import "./SingleItem.css";
  * @param {ItemObject} item
  */
 const SingleItem = (props) => {
-  
+
   const handleItemEdit = (event) => {
     event.preventDefault();
     console.log("handleItemEdit not implemented");
@@ -31,7 +31,7 @@ const SingleItem = (props) => {
       </span>
       <button
         type="edit"
-        className="SingleItem-edit u-pointer u-flex-alignCenter"
+        className="SingleItem-button u-pointer u-flex-alignCenter"
         value="Edit"
         onClick={handleItemEdit}
       >
@@ -39,7 +39,7 @@ const SingleItem = (props) => {
       </button>
       <button
         type="del"
-        className="SingleItem-edit u-pointer u-flex-alignCenter"
+        className="SingleItem-button u-pointer u-flex-alignCenter"
         value="Del"
         onClick={handleItemDel}
       >
