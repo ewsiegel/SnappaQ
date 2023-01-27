@@ -29,7 +29,7 @@
 .Active-endGameButton {
   font-size: 14px;
   padding: var(--s) var(--m);
-  background-color: var(--red);
+  background-color: var(--green);
   flex-grow: 1;
   align-items: center;
   width: 50%;
