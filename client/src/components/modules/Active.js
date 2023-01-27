@@ -10,13 +10,26 @@ import { post } from "../../utilities.js";
 
 const Active = (props) => {
 
-  const handleEndGame = (event) => {
+  // const handleEndGame = (event) => {
+  //   console.log("game over");
+  //   event.preventDefault();
+  //   post("/api/completegame");
+  //   props.callback();
+  // };
+
+  const handleTeam1Wins = (event) => {
     console.log("game over");
     event.preventDefault();
-    // props.onSubmit && props.onSubmit([player1, player2]);
     post("/api/completegame");
     props.callback();
-  };
+  }
+
+  const handleTeam2Wins = (event) => {
+    console.log("game over");
+    event.preventDefault();
+    post("/api/completegame");
+    props.callback();
+  }
 
   const handleClearAll = (event) => {
     console.log("clearing all");
@@ -27,7 +40,6 @@ const Active = (props) => {
 
   return (
     <div className="u-flexColumn u-flex-alignCenter ActiveQueue-container">
-    {/* <div className="ActiveQueue-container"> */}
       <h3>Snappa</h3>
       <ActiveGame data={props.activeData} />
       <div className="Active-endGameButtonContainer">
@@ -35,9 +47,17 @@ const Active = (props) => {
           type="endGame"
           className="Active-endGameButton u-pointer u-flex-alignCenter"
           value="END GAME"
-          onClick={handleEndGame}
+          onClick={handleTeam1Wins}
         >
-          End Game
+          Team 1 Wins
+        </button>
+        <button
+          type="endGame"
+          className="Active-endGameButton u-pointer u-flex-alignCenter"
+          value="END GAME"
+          onClick={handleTeam2Wins}
+        >
+          Team 2 Wins
         </button>
       </div>
       <ActiveQueue data={props.data} callback={props.callback} />
