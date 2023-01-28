@@ -26,26 +26,22 @@ function style_name(name) {
 
 const Active = (props) => {
 
-  // const handleEndGame = (event) => {
-  //   console.log("game over");
-  //   event.preventDefault();
-  //   post("/api/completegame");
-  //   props.callback();
-  // };
-
   const handleTeam1Wins = (event) => {
     console.log("game over");
     event.preventDefault();
-    // props.onSubmit && props.onSubmit([player1, player2]);
-    post("/api/completegame", {gametype: props.name.toLowerCase()});
-    //props.callback();
+    post("/api/completegame", {gametype: props.name.toLowerCase(), winner: 1});
+  };
+
+  const handleTeam2Wins = (event) => {
+    console.log("game over");
+    event.preventDefault();
+    post("/api/completegame", {gametype: props.name.toLowerCase(), winner: 2});
   };
 
   const handleClearAll = (event) => {
     console.log("clearing all");
     event.preventDefault();
     post("/api/clearqueue", {gametype: props.name.toLowerCase()});
-    //props.callback();
   }
 
   return (

@@ -91,7 +91,7 @@ router.post("/appendqueue", (req, res) => {
 
 //complete the current active game
 router.post("/completegame", (req, res) => {
-  state.queues[req.body.gametype].completeGameLazy();
+  state.queues[req.body.gametype].completeGame(Number(req.body.winner));
   emitGameState(req.body.gametype);
   res.send({});
 });
