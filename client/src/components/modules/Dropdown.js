@@ -8,9 +8,10 @@ const PlayerDropdown = (props) => {
         aria-labelledby="playerdropdown-label"
         inputId="player-input"
         name="player-dropdown"
-        options={props.profiles}
+        options={[{value: "", label: "Need 1"}].concat(props.profiles)}
         onChange={props.handler}
         ref={props.innerRef}
+        defaultValue={{value: "", label: "Need 1"}}
       />
     </form>
   );
