@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 
 import Active from "../modules/Active.js";
 import QueueList from "../modules/QueueList.js";
@@ -66,6 +66,7 @@ const Queues = (props) => {
 
   // const [activeQueues, setActiveQueues] = useState(["Snappa", "Beer Die", "Pool", "Darts"]);
   const [activeQueues, setActiveQueues] = useState(null);
+  // const activeQueuesContext = createContext(activeQueues);
   // this won't matter until game types are dynamic and new queues can be added
 
   // const [activeQueue, setActiveQueue] = useState("Snappa");
