@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import "./NewItem.css";
 import { post } from "../../utilities";
+
+import PlayerDropdown from "./Dropdown";
 
 /**
  * New Item is a parent component for all input components
@@ -15,13 +17,16 @@ const NewItemInput = (props) => {
   const [player1, setPlayer1] = useState("");
   const [player2, setPlayer2] = useState("");
 
+  let ref1 = useRef(null);
+  let ref2 = useRef(null);
+
   // called whenever the user types in the new item input box
   // pretty sure this can remain unchanged
-  const handleChange1 = (event) => {
-    setPlayer1(event.target.value);
+  const handleChange1 = (select) => {
+    setPlayer1(select.value);
   };
-  const handleChange2 = (event) => {
-    setPlayer2(event.target.value);
+  const handleChange2 = (select) => {
+    setPlayer2(select.value);
   };
 
   // called when the user hits "Submit" for a new item
@@ -29,26 +34,14 @@ const NewItemInput = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     props.onSubmit && props.onSubmit([player1, player2]);
-    setPlayer1("");
-    setPlayer2("");
+    ref1.current.setValue({value: "", label: "Need 1"});
+    ref2.current.setValue({value: "", label: "Need 1"});
   };
-
   return (
+    <>
     <div className="u-flex">
-      <input
-        type="text"
-        placeholder={props.defaultText}
-        value={player1}
-        onChange={handleChange1}
-        className="NewItemInput-input"
-      />
-      <input
-        type="text"
-        placeholder={props.defaultText}
-        value={player2}
-        onChange={handleChange2}
-        className="NewItemInput-input"
-      />
+      <PlayerDropdown innerRef={ref1} handler={handleChange1} profiles={props.profiles}/>
+      <PlayerDropdown innerRef={ref2} handler={handleChange2} profiles={props.profiles} />
       <button
         type="submit"
         className="NewItemInput-button u-pointer"
@@ -58,6 +51,7 @@ const NewItemInput = (props) => {
         Submit
       </button>
     </div>
+    </>
   );
 };
 
@@ -71,8 +65,7 @@ const NewItem = (props) => {
   const addItem = (players) => {
     const body = {
       team: players.map((elm => {
-        if (elm === "") return "Need 1";
-        else return elm;
+        return elm;
       })),
       gametype: props.active.toLowerCase()
     };
@@ -80,7 +73,7 @@ const NewItem = (props) => {
     //props.callback();
   };
 
-  return <NewItemInput defaultText="Enter Player Name" onSubmit={addItem} />;
+  return <NewItemInput defaultText="Enter Player Name" onSubmit={addItem} profiles={props.profiles} />;
 };
 
 // export default NewItem;

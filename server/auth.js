@@ -4,7 +4,6 @@ const Profile = require("./models/profile");
 const socketManager = require("./server-socket");
 
 // create a new OAuth client used to verify google sign-in
-//    TODO: replace with your own CLIENT_ID
 const CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.googleusercontent.com";
 const client = new OAuth2Client(CLIENT_ID);
 
@@ -42,7 +41,11 @@ function createProfileIfNew(user) {
         wins: 0,
         losses: 0,
       });
-      return new_profile.save();
+      new_profile.save().then(() => {
+        Profile.find({}).then((profiles) => {
+          socketManager.getIo().emit("profiles", profiles);
+        });
+      });
     }
     return;
   });
