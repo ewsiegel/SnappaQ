@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 import Active from "../modules/Active.js";
-// import QueueList from "../modules/QueueList.js";
+import QueueList from "../modules/QueueList.js";
 import "../../utilities.css";
 import "./Queues.css";
+import { socket } from "../../client-socket.js";
 import { get, post } from "../../utilities";
 
 const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.googleusercontent.com";
@@ -24,19 +25,21 @@ const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.goo
 // };
 
 function queueDataToProp(queuedata) {
-    let queuesDataObj = {activeData: {
-                      items: [{position: 1, players: queuedata.activeGame.team1},
-                                {position: 2, players: queuedata.activeGame.team2}]
-                     }, 
-                     data: {
-                      items: queuedata.queue.map((players) => {
-                        return {position: queuedata.queue.indexOf(players) + 1, players: players}
-                      })
-                     }
-                    }
-    return queuesDataObj;
+  let queuesDataObj = {
+    activeData: {
+      items: [
+        { position: 1, players: queuedata.activeGame.team1 },
+        { position: 2, players: queuedata.activeGame.team2 },
+      ],
+    },
+    data: {
+      items: queuedata.queue.map((players) => {
+        return { position: queuedata.queue.indexOf(players) + 1, players: players };
+      }),
+    },
+  };
+  return queuesDataObj;
 }
-
 
 /**
  * Page component to display when at the "/chat" route
@@ -61,33 +64,66 @@ const Queues = (props) => {
    * @property {ItemObject[]} items
    */
 
-  // const [activeQueues, setActiveQueues] = useState([]);
+  // const [activeQueues, setActiveQueues] = useState(["Snappa", "Beer Die", "Pool", "Darts"]);
+  const [activeQueues, setActiveQueues] = useState(null);
   // this won't matter until game types are dynamic and new queues can be added
 
+  // const [activeQueue, setActiveQueue] = useState("Snappa");
   // const [activeQueue, setActiveQueue] = useState({
+  //   name: "Snappa",
+  //   items: [],
   // });
+
+  function queryActiveQueues() {
+    get("/api/queues").then((queues) => {
+      setActiveQueues(queues);
+    });
+  }
+
+  const [activeQueue, setActiveQueue] = useState("snappa");
 
   const [queuesData, setQueuesData] = useState(null);
 
-  function updateQueuesData() {
-    return get("/api/queues").then((queuedata) => {
-      setQueuesData(queueDataToProp(queuedata))
+  function updateActiveQueueData(queuedata) {
+    setQueuesData(queueDataToProp(queuedata));
+  }
+
+  function loadActiveQueueHistory(gametype) {
+    get("/api/queue", {gametype: gametype}).then((queuedata) => {
+      updateActiveQueueData(queuedata);
     });
   }
 
   useEffect(() => {
-    updateQueuesData();
+    queryActiveQueues();
   }, []);
 
-  const updateQueuesDataCallback = React.useCallback(() => updateQueuesData(), [])
+  useEffect(() => {
+    if (props.userId) {
+      loadActiveQueueHistory(activeQueue);
+      socket.on("gameState", updateActiveQueueData);
+      return () => {
+        socket.off("gameState", updateActiveQueueData);
+      };
+    }
+  }, [activeQueue, props.userId]);
 
-  // const loadActiveQueue = () => {
-  //   // get("/api/chat", { recipient_id: recipient._id }).then((messages) => {
-  //   //   setActiveChat({
-  //   //     recipient: recipient,
-  //   //     messages: messages,
-  //   //   });
-  //   // });
+  useEffect(() => {
+    queryActiveQueues();
+    socket.on("queues", setActiveQueues);
+    return () => {
+      socket.off("queues", setActiveQueues);
+    };
+  }, [])
+
+  // const updateQueuesDataCallback = React.useCallback(() => updateQueuesData(), []);
+
+  // WORKING ON THIS PART RN - BRAD
+  // PROLLY SHOULD BE SIMILAR ASF TO updateQueuesData
+  // const loadQueueHistory = (name) => {
+  //   get("/api/queues", {  }).then((name) => {
+  //     setActiveChat(name);
+  //   });
   // };
 
   // const addMessages = (data) => {
@@ -99,9 +135,23 @@ const Queues = (props) => {
   //   }));
   // };
 
-  useEffect(() => {
-    document.title = "Queues";
-  }, []);
+  // const addItems = (data) => {
+  //   setActiveQueue(prevActiveQueue => ({
+  //     name: prevActiveQueue.name,
+  //     items: prevActiveQueue.items.concat(data)
+  //   }));
+  // };
+
+  // useEffect(() => {
+  //   document.title = "Queues"; // WHAT IS THIS EVEN DOING
+  // }, []);
+
+  // useEffect(() => {
+  //   socket.on("items", addItems);
+  //   return () => {
+  //     socket.off("items", addItems);
+  //   };
+  // }, []);
 
   // useEffect(() => {
   //   loadMessageHistory(activeChat.recipient);
@@ -124,14 +174,25 @@ const Queues = (props) => {
   //   };
   // }, []);
 
+  // // CODE FOR UPDATING WHEN A NEW QUEUE IS ADDED - TODO
   // useEffect(() => {
-  //   // const callback = (data) => {
-  //   //   setActiveUsers([ALL_CHAT].concat(data.activeUsers));
-  //   // };
-  //   // socket.on("activeUsers", callback);
-  //   // return () => {
-  //   //   socket.off("activeUsers", callback);
-  //   // };
+  //   const callback = (data) => {
+  //     setActiveQueues([ALL_CHAT].concat(data.activeQueues));
+  //   };
+  //   socket.on("activeQueues", callback);
+  //   return () => {
+  //     socket.off("activeQueues", callback); // copy inputs from 2 lines above
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   const callback = (data) => {
+  //     setActiveQueue(data);
+  //   };
+  //   socket.on("activeQueues", callback);
+  //   return () => {
+  //     socket.off("activeQueues", callback);
+  //   };
   // }, []);
 
   // const setActiveUser = (user) => {
@@ -146,30 +207,27 @@ const Queues = (props) => {
   if (!props.userId) {
     return <div>Log in before using SnappaQ</div>;
   }
-  if (queuesData === null) {
+  if (queuesData === null || activeQueues == null) {
     return <div>Loading</div>;
   }
   return (
     <>
       <div className="u-flex u-relative Queues-container">
-        {/* <div className="Queues-queueList">
-          <ChatList
-            setActiveUser={setActiveUser}
+        <div className="Queues-queueList">
+          <QueueList
+            setActiveQueue={setActiveQueue}
             userId={props.userId}
-            users={activeUsers}
-            active={activeChat.recipient}
+            queues={activeQueues}
+            active={activeQueue}
           />
-        </div> */}
-        {/* <div className="Queues-activeContainer u-relative">
-          <div className="Queues-queueContainer">
-            <ActiveGame data={activeData} />
-          </div>
-          <div className="Queues-queueContainer">
-            <ActiveQueue data={data} />
-          </div>
-        </div> */}
-        <div className="Queues-queueContainer">
-          <Active activeData={queuesData.activeData} data={queuesData.data} callback={updateQueuesDataCallback} />
+        </div>
+        <div className="Queues-queueContainer u-relative">
+          <Active
+            name={activeQueue}
+            activeData={queuesData.activeData}
+            data={queuesData.data}
+            //callback={updateQueuesDataCallback}
+          />
         </div>
       </div>
     </>
