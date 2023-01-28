@@ -2,6 +2,57 @@ import React, { useState, useEffect } from "react";
 import SingleQueue from "../modules/SingleQueue.js";
 
 import "./SingleQueue.css";
+import { post } from "../../utilities.js";
+
+const NewQueueInput = (props) => {
+  const [text, setText] = useState("");
+  const [num, setNum] = useState(1);
+
+  // called whenever the user types in the new item input box
+  // pretty sure this can remain unchanged
+  const handleChange = (event) => {
+    setText(event.target.value);
+  };
+
+  const handleChangeNum = (event) => {
+    setNum(event.target.value);
+  };
+
+  // called when the user hits "Submit" for a new item
+  // pretty sure this can remain unchanged
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    props.onSubmit && props.onSubmit(text, num);
+    setText("");
+  };
+
+  return (
+    <div className="u-flex">
+      <input
+        type="text"
+        placeholder={props.defaultText}
+        value={text}
+        onChange={handleChange}
+        className="NewQueueInput-input"
+      />
+      <input
+        type="number"
+        placeholder={1}
+        value={num}
+        onChange={handleChangeNum}
+        className="NewQueueInput-inputNum"
+      />
+      <button
+        type="submit"
+        className="NewQueueInput-button u-pointer"
+        value="Submit"
+        onClick={handleSubmit}
+      >
+        Submit
+      </button>
+    </div>
+  );
+};
 
 /**
  * List of users that are online to chat with and all chat
@@ -18,23 +69,15 @@ const QueueList = (props) => {
     <>
       <h3 className={"SingleQueue-header"}>Open Queues</h3>
       {/* i will be key denoting something?? */}
-      {props.queues.map((queue, i) => (
+      {Array.from(props.queues.entries()).map(([i, name]) => (
         <SingleQueue
           key={i}
           setActiveQueue={props.setActiveQueue}
-          name={queue}
-          active={queue === props.active}
+          name={name}
+          active={name === props.active}
         />
       ))}
-      <button
-        type="addNewQueue"
-        className="SingleQueue-button u-pointer"
-        value="Add New Queue"
-        // onClick={INSERT FUNC TO EXECUTE ON CLICK}
-        // will need to pass in setActiveQueues 
-      >
-        Add New Queue
-      </button>
+      <NewQueueInput defaultText="New Queue Name" onSubmit={(name, num) => {post("/api/newqueue", {name: name, playersPerTeam: Number(num)})}} />
     </>
   );
 };

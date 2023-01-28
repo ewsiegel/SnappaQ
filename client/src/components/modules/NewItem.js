@@ -73,10 +73,11 @@ const NewItem = (props) => {
       team: players.map((elm => {
         if (elm === "") return "Need 1";
         else return elm;
-      }))
+      })),
+      gametype: props.active.toLowerCase()
     };
     post("/api/appendqueue", body);
-    props.callback();
+    //props.callback();
   };
 
   return <NewItemInput defaultText="Enter Player Name" onSubmit={addItem} />;

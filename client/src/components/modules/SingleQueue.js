@@ -2,6 +2,14 @@ import React, { useState, useEffect } from "react";
 
 import "./SingleQueue.css";
 
+function style_name(name) {
+  let splitted = name.split("_");
+  for (var i = 0; i < splitted.length; i++) {
+    splitted[i] = splitted[i].charAt(0).toUpperCase() + splitted[i].slice(1);
+  }
+  return splitted.join(" ");
+}
+
 /**
  * Component to render an online user
  *
@@ -20,7 +28,7 @@ const SingleQueue = (props) => {
         props.setActiveQueue(props.name);
       }}
     >
-      {props.name}
+      {style_name(props.name)}
     </div>
   );
 }

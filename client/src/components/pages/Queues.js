@@ -65,34 +65,58 @@ const Queues = (props) => {
    */
 
   // const [activeQueues, setActiveQueues] = useState(["Snappa", "Beer Die", "Pool", "Darts"]);
-  const [activeQueues, setActiveQueues] = useState([
-    // these are the default Queue types
-    { name: "Snappa", items: [] },
-    { name: "Beer Die", items: [] },
-    { name: "Pool", items: [] },
-    { name: "Darts", items: [] },
-  ]);
+  const [activeQueues, setActiveQueues] = useState(null);
   // this won't matter until game types are dynamic and new queues can be added
 
   // const [activeQueue, setActiveQueue] = useState("Snappa");
-  const [activeQueue, setActiveQueue] = useState({
-    name: "Snappa",
-    items: [],
-  });
+  // const [activeQueue, setActiveQueue] = useState({
+  //   name: "Snappa",
+  //   items: [],
+  // });
+
+  function queryActiveQueues() {
+    get("/api/queues").then((queues) => {
+      setActiveQueues(queues);
+    });
+  }
+
+  const [activeQueue, setActiveQueue] = useState("snappa");
 
   const [queuesData, setQueuesData] = useState(null);
 
-  function updateQueuesData() {
-    return get("/api/queues").then((queuedata) => {
-      setQueuesData(queueDataToProp(queuedata));
+  function updateActiveQueueData(queuedata) {
+    setQueuesData(queueDataToProp(queuedata));
+  }
+
+  function loadActiveQueueHistory(gametype) {
+    get("/api/queue", {gametype: gametype}).then((queuedata) => {
+      updateActiveQueueData(queuedata);
     });
   }
 
   useEffect(() => {
-    updateQueuesData();
+    queryActiveQueues();
   }, []);
 
-  const updateQueuesDataCallback = React.useCallback(() => updateQueuesData(), []);
+  useEffect(() => {
+    if (props.userId) {
+      loadActiveQueueHistory(activeQueue);
+      socket.on("gameState", updateActiveQueueData);
+      return () => {
+        socket.off("gameState", updateActiveQueueData);
+      };
+    }
+  }, [activeQueue, props.userId]);
+
+  useEffect(() => {
+    queryActiveQueues();
+    socket.on("queues", setActiveQueues);
+    return () => {
+      socket.off("queues", setActiveQueues);
+    };
+  }, [])
+
+  // const updateQueuesDataCallback = React.useCallback(() => updateQueuesData(), []);
 
   // WORKING ON THIS PART RN - BRAD
   // PROLLY SHOULD BE SIMILAR ASF TO updateQueuesData
@@ -111,23 +135,23 @@ const Queues = (props) => {
   //   }));
   // };
 
-  const addItems = (data) => {
-    setActiveQueue(prevActiveQueue => ({
-      name: prevActiveQueue.name,
-      items: prevActiveQueue.items.concat(data)
-    }));
-  };
+  // const addItems = (data) => {
+  //   setActiveQueue(prevActiveQueue => ({
+  //     name: prevActiveQueue.name,
+  //     items: prevActiveQueue.items.concat(data)
+  //   }));
+  // };
 
-  useEffect(() => {
-    document.title = "Queues"; // WHAT IS THIS EVEN DOING
-  }, []);
+  // useEffect(() => {
+  //   document.title = "Queues"; // WHAT IS THIS EVEN DOING
+  // }, []);
 
-  useEffect(() => {
-    socket.on("items", addItems);
-    return () => {
-      socket.off("items", addItems);
-    };
-  }, []);
+  // useEffect(() => {
+  //   socket.on("items", addItems);
+  //   return () => {
+  //     socket.off("items", addItems);
+  //   };
+  // }, []);
 
   // useEffect(() => {
   //   loadMessageHistory(activeChat.recipient);
@@ -161,15 +185,15 @@ const Queues = (props) => {
   //   };
   // }, []);
 
-  useEffect(() => {
-    const callback = (data) => {
-      setActiveQueue(data);
-    };
-    socket.on("activeQueues", callback);
-    return () => {
-      socket.off("activeQueues", callback);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const callback = (data) => {
+  //     setActiveQueue(data);
+  //   };
+  //   socket.on("activeQueues", callback);
+  //   return () => {
+  //     socket.off("activeQueues", callback);
+  //   };
+  // }, []);
 
   // const setActiveUser = (user) => {
   //   if (user._id !== activeChat.recipient._id) {
@@ -183,7 +207,7 @@ const Queues = (props) => {
   if (!props.userId) {
     return <div>Log in before using SnappaQ</div>;
   }
-  if (queuesData === null) {
+  if (queuesData === null || activeQueues == null) {
     return <div>Loading</div>;
   }
   return (
@@ -202,7 +226,7 @@ const Queues = (props) => {
             name={activeQueue}
             activeData={queuesData.activeData}
             data={queuesData.data}
-            callback={updateQueuesDataCallback}
+            //callback={updateQueuesDataCallback}
           />
         </div>
       </div>
