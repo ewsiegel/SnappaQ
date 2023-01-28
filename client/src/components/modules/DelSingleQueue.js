@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { get, post } from "../../utilities";
 
 import "./SingleQueue.css";
 
@@ -16,18 +17,21 @@ function style_name(name) {
  * Proptypes
  * @param {boolean} active
  * @param {string} name of queue
+ * @param {() => void} setDisplayDelQueue function to trigger DelQueuePopup
  */
 const DelSingleQueue = (props) => {
 
   const handleDelQueue = (event) => {
     console.log("deleting queue: ", props.name);
     event.preventDefault();
-    post("/api/delqueuee", {name: props.name.toLowerCase()});
+    post("/api/delqueue", {name: props.name.toLowerCase()});
+    props.setDisplayDelQueue(false);
   };
 
   return (
     <div className={`SingleQueue-container u-pointer`}>
       {style_name(props.name)}
+      <br></br>
       <button
         type="delQueue"
         className="SingleQueue-delQueueButton u-pointer u-flex-alignCenter"

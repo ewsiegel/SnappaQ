@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 
 import Active from "../modules/Active.js";
 import QueueList from "../modules/QueueList.js";
+import DelQueuePopup from "../modules/DelQueuePopup.js";
 import "../../utilities.css";
 import "./Queues.css";
 import { socket } from "../../client-socket.js";
@@ -84,6 +85,8 @@ const Queues = (props) => {
   const [activeQueue, setActiveQueue] = useState("snappa");
 
   const [queuesData, setQueuesData] = useState(null);
+
+  const [displayDelQueue, setDisplayDelQueue] = useState(false);
 
   function updateActiveQueueData(queuedata) {
     setQueuesData(queueDataToProp(queuedata));
@@ -211,12 +214,14 @@ const Queues = (props) => {
   if (queuesData === null || activeQueues == null) {
     return <div>Loading</div>;
   }
-  return (
+  return (!displayDelQueue) ? (
     <>
       <div className="u-flex u-relative Queues-container">
         <div className="Queues-queueList">
           <QueueList
             setActiveQueue={setActiveQueue}
+            setDisplayDelQueue={setDisplayDelQueue}
+            displayDelQueue={displayDelQueue}
             userId={props.userId}
             queues={activeQueues}
             active={activeQueue}
@@ -230,8 +235,18 @@ const Queues = (props) => {
             //callback={updateQueuesDataCallback}
           />
         </div>
+        
       </div>
     </>
+  ) : (
+    <DelQueuePopup 
+      trigger={displayDelQueue} 
+      setDisplayDelQueue={setDisplayDelQueue}
+      userId={props.userID} 
+      queues={activeQueues}
+    >
+          <h3>My Popup</h3>
+    </DelQueuePopup>
   );
 };
 

@@ -1,7 +1,28 @@
 .DelQueuePopup-container {
-  height: calc(100vh - 120px);
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  /* padding: 36px */
+  height: 100vh;
+  background-color: var(--darkgrey);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.DelQueuePopup-inner {
+  position: relative;
+  padding: 32px;
+  width: 25%;
+  max-width: 640px;
+  background-color: var(--white);
+}
+
+.DelQueuePopup-inner .close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
 }
 
 .DelQueuePopup-queueList {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SingleQueue from "../modules/SingleQueue.js";
+import DelQueuePopup from "./DelQueuePopup.js";
 import { Link } from "@reach/router";
 
 import "./SingleQueue.css";
@@ -60,6 +61,8 @@ const NewQueueInput = (props) => {
  *
  * Proptypes
  * @param {() => void} setActiveQueues function to change active Queue on button click
+ * @param {() => void} setDisplayDelQueue function to trigger DelQueuePopup
+ * @param {boolean} displayDelQueue 
  * @param {QueueObject[]} queues to display
  * @param {QueueObject} active queue in chat
  * @param {string} userId id of current logged in user (DO WE NEED TO KEEP TRACK OF THIS? DIDNT GET PASSED THRU IN CHATBOOK)
@@ -84,14 +87,13 @@ const QueueList = (props) => {
           post("/api/newqueue", { name: name, playersPerTeam: Number(num) });
         }}
       />
-      
-      {/* <Link 
-        to="/delqueue/" 
-        className="SingleQueue-link"
-        state={props.queues}
+      <br></br>
+      <button 
+        className="SingleQueue-button"
+        onClick={() => {props.setDisplayDelQueue(true)}}
       >
         Delete Queue
-      </Link> */}
+      </button>
     </>
   );
 };
