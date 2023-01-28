@@ -6,7 +6,7 @@ import NotFound from "./pages/NotFound.js";
 import NavBar from "./modules/NavBar.js";
 import Queues from "./pages/Queues.js";
 import Profile from "./pages/Profile.js";
-import DelQueue from "..pages/DelQueue.js";
+import DelQueue from "./pages/DelQueue.js";
 
 import "../utilities.css";
 
@@ -53,6 +53,7 @@ const App = () => {
           <Queues path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
           <Profile path="/profile/" userId={userId} />
           <NotFound default />
+          {/* <DelQueue path="/delqueue" userId={userId}/> */}
         </Router>
       </div>
     </>

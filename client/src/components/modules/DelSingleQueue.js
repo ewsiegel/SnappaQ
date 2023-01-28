@@ -14,23 +14,30 @@ function style_name(name) {
  * Component to render an online user
  *
  * Proptypes
- * @param {() => void} setActiveQueues function to change active Queue on button click
- * @param {UserObject} queue
  * @param {boolean} active
+ * @param {string} name of queue
  */
-const SingleQueue = (props) => {
+const DelSingleQueue = (props) => {
+
+  const handleDelQueue = (event) => {
+    console.log("deleting queue: ", props.name);
+    event.preventDefault();
+    post("/api/delqueuee", {name: props.name.toLowerCase()});
+  };
+
   return (
-    <div
-      className={`SingleQueue-container u-pointer ${props.active ?
-        "SingleQueue-container--active" : ""
-        }`}
-      onClick={() => {
-        props.setActiveQueue(props.name);
-      }}
-    >
+    <div className={`SingleQueue-container u-pointer`}>
       {style_name(props.name)}
+      <button
+        type="delQueue"
+        className="SingleQueue-delQueueButton u-pointer u-flex-alignCenter"
+        value="DEL QUEUE"
+        onClick={handleDelQueue}
+      >
+        Delete Queue
+      </button>
     </div>
   );
-}
+};
 
-export default SingleQueue;
+export default DelSingleQueue;
