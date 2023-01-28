@@ -226,7 +226,6 @@ const Queues = (props) => {
             name={activeQueue}
             activeData={queuesData.activeData}
             data={queuesData.data}
-            //callback={updateQueuesDataCallback}
           />
         </div>
       </div>

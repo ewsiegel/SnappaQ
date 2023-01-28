@@ -114,7 +114,7 @@ router.get("/queues", (req, res) => {
 router.post("/newqueue", (req, res) => {
   if (req.body.name?.trim()) {
     let to_add = req.body.name.toLowerCase().split(' ').join('_');
-    if (state.queues === undefined) {
+    if (state.queues[to_add] === undefined) {
       state.queues[to_add] = new GameQueue(to_add, Number(req.body.playersPerTeam));
       console.log(state);
       emitQueueState();
