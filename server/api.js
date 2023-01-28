@@ -91,7 +91,7 @@ router.post("/appendqueue", (req, res) => {
 
 //complete the current active game
 router.post("/completegame", (req, res) => {
-  state.queues[req.body.gametype].completeGameLazy();
+  state.queues[req.body.gametype].completeGame(Number(req.body.winner));
   emitGameState(req.body.gametype);
   res.send({});
 });
@@ -127,38 +127,14 @@ router.post("/delqueue", (req, res) => {
   emitQueueState();
 });
 
-// uncomment this when we allow custom queues
-// router.post("/queues", (req, res) => {
-//   console.log(`Received a queue from ${req.user.name}: ${req.body.content}`);
-
-//   // insert queue into the database
-//   const queue = new Queue({
-//     // insert stuff here
-//   })
-//   queue.save()
-//   socketManager.getIo().emit("queue", queue);
-// })
-
-// router.post("item", (req, res) => {
-//   console.log(`Received a new item from ${req.user.name}: ${req.body.content}`);
-  
-//   // insert item into the Queue
-//   // not entirely sure how this can work without hooking queue up to a database
-//   // we want the queue to just exist in the server
-//   const item = new Item({
-//     gameType: req.body.gameType,
-//     gameId: null, // how do we make this custom for every item
-//     state: req.body.state,
-//     players: {
-//       team1: req.body.players.team1,
-//       team2: req.body.players.team2,
-//     }
-//   })
-
-//   // I think just leaving this out keeps it from saving to a database
-//   // item.save()
-//   socketManager.getIo().emit("item", item);
-// })
+router.post("/delitem", (req, res) => {
+  if (req.body.active)
+    state.queues[req.body.gametype].delGameItem(Number(req.body.index));
+  else
+    state.queues[req.body.gametype].delQueueItem(Number(req.body.index));
+  emitGameState(req.body.gametype);
+  res.send({});
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

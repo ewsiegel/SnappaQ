@@ -28,6 +28,20 @@ class Queue {
       }
       return l;
     }
+    deleteItem(index) {
+      let cutoff = this.front+index;
+      let new_items = {};
+      for (const [key, value] of Object.entries(this.items)) {
+        if (key < cutoff) {
+          new_items[key] = value;
+        }
+        else if (key > cutoff) {
+          new_items[key-1] = value;
+        }
+      }
+      this.items = new_items;
+      this.rear--;
+    }
 }
 
 module.exports = Queue;

@@ -5,11 +5,14 @@
 
 .SingleItem-position {
   width: var(--xl);
+  /* width: 15%; */
+  /* width: 10%; */
   /* margin-right: var(--m); */
   flex-shrink: 1;
 }
 
 .SingleItem-players {
+  /* width: 50%; */
   width: 150px;
   padding: var(--s) var(--m);
   background: var(--medgrey);
@@ -19,16 +22,8 @@
   overflow-wrap: anywhere;
 }
 
-.SingleItem-edit {
-  padding: var(--s) var(--m);
-  background: var(--medgrey);
-  border-radius: var(--l);
-  flex-shrink: 0;
-  overflow-wrap: break-word;
-  overflow-wrap: anywhere;
-}
-
-.SingleItem-del {
+.SingleItem-button {
+  width: 20%;
   padding: var(--s) var(--m);
   background: var(--medgrey);
   border-radius: var(--l);

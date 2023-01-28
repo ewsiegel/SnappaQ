@@ -26,34 +26,45 @@ function style_name(name) {
 
 const Active = (props) => {
 
-  const handleEndGame = (event) => {
+  const handleTeam1Wins = (event) => {
     console.log("game over");
     event.preventDefault();
-    // props.onSubmit && props.onSubmit([player1, player2]);
-    post("/api/completegame", {gametype: props.name.toLowerCase()});
-    //props.callback();
+    post("/api/completegame", {gametype: props.name.toLowerCase(), winner: 1});
+  };
+
+  const handleTeam2Wins = (event) => {
+    console.log("game over");
+    event.preventDefault();
+    post("/api/completegame", {gametype: props.name.toLowerCase(), winner: 2});
   };
 
   const handleClearAll = (event) => {
     console.log("clearing all");
     event.preventDefault();
     post("/api/clearqueue", {gametype: props.name.toLowerCase()});
-    //props.callback();
   }
 
   return (
     <div className="u-flexColumn u-flex-alignCenter ActiveQueue-container">
     {/* <div className="ActiveQueue-container"> */}
       <h3>{style_name(props.name)}</h3>
-      <ActiveGame data={props.activeData} />
+      <ActiveGame data={props.activeData} active={props.name}/>
       <div className="Active-endGameButtonContainer">
         <button
           type="endGame"
           className="Active-endGameButton u-pointer u-flex-alignCenter"
           value="END GAME"
-          onClick={handleEndGame}
+          onClick={handleTeam1Wins}
         >
-          End Game
+          Team 1 Wins
+        </button>
+        <button
+          type="endGame"
+          className="Active-endGameButton u-pointer u-flex-alignCenter"
+          value="END GAME"
+          onClick={handleTeam2Wins}
+        >
+          Team 2 Wins
         </button>
       </div>
       <ActiveQueue data={props.data} active={props.name} />

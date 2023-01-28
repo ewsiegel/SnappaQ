@@ -38,37 +38,53 @@ class GameQueue {
         }
     }
 
-    // completeGame(winner) {
-
-    // }
-
-    completeGameLazy() {
+    completeGame(winner) {
         if (this.gameActive()) {
             console.log("Completed game between", this.activeGame.team1, "and", this.activeGame.team2);
-            // team 1 loses
-            Game.findOneAndUpdate({gameId: this.activeGame.id}, {state: "complete", winners: this.activeGame.team1, losers: this.activeGame.team2}).then(() => {
-                console.log("Updated completed game in db");
-            });
-            this.activeGame.team2.forEach(async (player) => {
-                Profile.findOneAndUpdate({id: player}, {$inc: {wins: 1}}).then(() => {
-                    console.log("Incremented win for", player);
+            console.log("Winner: Team", winner);
+            if (winner === 1) {
+                //team 1 wins, team 2 loses
+                Game.findOneAndUpdate({gameId: this.activeGame.id}, {state: "complete", winners: this.activeGame.team1, losers: this.activeGame.team2}).then(() => {
+                    console.log("Updated completed game in db");
                 });
-            });
-            this.activeGame.team1.forEach(async (player) => {
-                Profile.findOneAndUpdate({id: player}, {$inc: {losses: 1}}).then(() => {
-                    console.log("Incremented loss for", player);
+                this.activeGame.team1.forEach(async (player) => {
+                    Profile.findOneAndUpdate({id: player}, {$inc: {wins: 1}}).then(() => {
+                        console.log("Incremented win for", player);
+                    });
                 });
-            });  
-            this.activeGame.team1 = this.activeGame.team2;
-            this.activeGame.team2 = null;
-            this.activeGame.id = null;
-            this.activeGame.timestamp = null;
-            
-            // team 2 loses
-            // this.activeGame.team2 = null;
-            // this.activeGame.id = null;
-            // this.activeGame.timestamp = null;
-
+                this.activeGame.team2.forEach(async (player) => {
+                    Profile.findOneAndUpdate({id: player}, {$inc: {losses: 1}}).then(() => {
+                        console.log("Incremented loss for", player);
+                    });
+                });  
+                //this.activeGame.team1 = this.activeGame.team1;
+                this.activeGame.team2 = null;
+                this.activeGame.id = null;
+                this.activeGame.timestamp = null;
+            }
+            else if (winner === 2) {
+                // team 1 loses, team 2 wins
+                Game.findOneAndUpdate({gameId: this.activeGame.id}, {state: "complete", winners: this.activeGame.team2, losers: this.activeGame.team1}).then(() => {
+                    console.log("Updated completed game in db");
+                });
+                this.activeGame.team2.forEach(async (player) => {
+                    Profile.findOneAndUpdate({id: player}, {$inc: {wins: 1}}).then(() => {
+                        console.log("Incremented win for", player);
+                    });
+                });
+                this.activeGame.team1.forEach(async (player) => {
+                    Profile.findOneAndUpdate({id: player}, {$inc: {losses: 1}}).then(() => {
+                        console.log("Incremented loss for", player);
+                    });
+                });  
+                this.activeGame.team1 = this.activeGame.team2;
+                this.activeGame.team2 = null;
+                this.activeGame.id = null;
+                this.activeGame.timestamp = null;
+            }
+            else {
+                throw new Error(`Unexpected input in completeGame: ${winner}`);
+            }
             this.tryDequeue();
             this.tryActivateGame();
         }
@@ -115,6 +131,28 @@ class GameQueue {
         }
         this.queue = new Queue();
         this.activeGame = {'team1': null, 'team2': null, 'id': null, 'timestamp': null};
+    }
+
+    delGameItem(index) {
+        let old_id = this.activeGame.id;
+        if (index === 0 && this.activeGame.team1 !== null) {
+            this.activeGame = {'team1': this.activeGame.team2, 'team2': null, 'id': null, 'timestamp': null};
+        }
+        else if (index === 1) {
+            this.activeGame = {'team1': this.activeGame.team1, 'team2': null, 'id': null, 'timestamp': null};
+        }
+        else {
+            throw new Error(`Unexpected input in delGame: ${index}`);
+        }
+        if (old_id !== null) {
+            Game.deleteOne({id: old_id});
+        }
+        this.tryDequeue();
+        this.tryActivateGame();
+    }
+
+    delQueueItem(index) {
+        this.queue.deleteItem(index);
     }
 
 }
