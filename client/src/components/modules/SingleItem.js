@@ -29,7 +29,7 @@ const SingleItem = (props) => {
         return props.profiles.find(obj => u === obj.value).label;
       }).join(", ");
     }
-    return "Game Not Active";
+    return "Team Not Active";
   }
 
   return (
