@@ -7,6 +7,22 @@ import "./Active.css";
 import "./SingleItem.css";
 import { post } from "../../utilities.js";
 
+function style_name(name) {
+  let splitted = name.split("_");
+  for (var i = 0; i < splitted.length; i++) {
+    splitted[i] = splitted[i].charAt(0).toUpperCase() + splitted[i].slice(1);
+  }
+  return splitted.join(" ");
+}
+
+/**
+ * List of users that are online to chat with and all chat
+ *
+ * Proptypes
+ * @param {} name of queue to displey
+ * @param {} 
+ * @param {}
+ */
 
 const Active = (props) => {
 
@@ -20,27 +36,22 @@ const Active = (props) => {
   const handleTeam1Wins = (event) => {
     console.log("game over");
     event.preventDefault();
-    post("/api/completegame", {winner: "team1"});
-    props.callback();
-  }
-
-  const handleTeam2Wins = (event) => {
-    console.log("game over");
-    event.preventDefault();
-    post("/api/completegame", {winner: "team1"});
-    props.callback();
-  }
+    // props.onSubmit && props.onSubmit([player1, player2]);
+    post("/api/completegame", {gametype: props.name.toLowerCase()});
+    //props.callback();
+  };
 
   const handleClearAll = (event) => {
     console.log("clearing all");
     event.preventDefault();
-    post("/api/clearqueue");
-    props.callback();
+    post("/api/clearqueue", {gametype: props.name.toLowerCase()});
+    //props.callback();
   }
 
   return (
     <div className="u-flexColumn u-flex-alignCenter ActiveQueue-container">
-      <h3>Snappa</h3>
+    {/* <div className="ActiveQueue-container"> */}
+      <h3>{style_name(props.name)}</h3>
       <ActiveGame data={props.activeData} />
       <div className="Active-endGameButtonContainer">
         <button
@@ -60,7 +71,7 @@ const Active = (props) => {
           Team 2 Wins
         </button>
       </div>
-      <ActiveQueue data={props.data} callback={props.callback} />
+      <ActiveQueue data={props.data} active={props.name} />
       <div className="Active-clearQueueButtonContainer">
         <button
           type="clearAll"

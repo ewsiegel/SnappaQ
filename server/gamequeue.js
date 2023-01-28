@@ -4,11 +4,11 @@ const Game = require('./models/game')
 const Profile = require('./models/profile')
 
 class GameQueue {
-    constructor(name, numPlayersPerTeam) {
+    constructor(gameName, numPlayersPerTeam) {
         this.numPlayersPerTeam = numPlayersPerTeam;
         this.queue = new Queue();
         this.activeGame = {'team1': null, 'team2': null, 'id': null, 'timestamp': null};
-        this.gameName = name;
+        this.gameName = gameName;
     }
 
     gameActive() {

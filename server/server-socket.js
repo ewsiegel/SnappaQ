@@ -7,6 +7,28 @@ const getSocketFromUserID = (userid) => userToSocketMap[userid];
 const getUserFromSocketID = (socketid) => socketToUserMap[socketid];
 const getSocketFromSocketID = (socketid) => io.sockets.connected[socketid];
 
+// const queueToSocketMap = {}; // maps queue ID to socket object
+// const socketToQueueMap = {}; // maps socket ID to queue object
+
+// const getSocketFromQueueID = (queueid) => queueToSocketMap[queueid];
+// const getQueueFromSocketID = (socketid) => socketToQueueMap[socketid];
+
+// I think this wont matter until we have custom queues
+// const addQueue = (queue, socket) => {
+//   const oldSocket = queueToSocketMap[queue._id];
+//   // if no socket exists, add one
+//   if (!oldSocket) {
+//     queueToSocketMap[queue._id] = socket;
+//     socketToQueueMap[socket.id] = queue;
+//   }
+// };
+
+// I think this wont matter until we have custom queues
+// const removeQueue = (queue, socket) => {
+//   if (queue) delete queueToSocketMap[queue._id];
+//   delete socketToQueueMap[socket.id];
+// };
+
 const addUser = (user, socket) => {
   const oldSocket = userToSocketMap[user._id];
   if (oldSocket && oldSocket.id !== socket.id) {
