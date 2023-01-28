@@ -48,7 +48,7 @@ const Active = (props) => {
     <div className="u-flexColumn u-flex-alignCenter ActiveQueue-container">
     {/* <div className="ActiveQueue-container"> */}
       <h3>{style_name(props.name)}</h3>
-      <ActiveGame data={props.activeData} active={props.name}/>
+      <ActiveGame data={props.activeData} active={props.name} profiles={props.profiles}/>
       <div className="Active-endGameButtonContainer">
         <button
           type="endGame"
@@ -67,7 +67,7 @@ const Active = (props) => {
           Team 2 Wins
         </button>
       </div>
-      <ActiveQueue data={props.data} active={props.name} />
+      <ActiveQueue data={props.data} active={props.name} profiles={props.profiles} />
       <div className="Active-clearQueueButtonContainer">
         <button
           type="clearAll"
