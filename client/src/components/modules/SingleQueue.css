@@ -34,3 +34,12 @@
   color: var(--white);
   background-color: var(--primary);
 }
+
+.SingleQueue-delQueueButton {
+  color: var(--red);
+  /* TODO */
+}
+
+/* .QueueList-link {
+  color: var(--red);
+} */

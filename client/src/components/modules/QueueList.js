@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SingleQueue from "../modules/SingleQueue.js";
+import DelQueuePopup from "./DelQueuePopup.js";
+import { Link } from "@reach/router";
 
 import "./SingleQueue.css";
 import { post } from "../../utilities.js";
@@ -59,10 +61,12 @@ const NewQueueInput = (props) => {
  *
  * Proptypes
  * @param {() => void} setActiveQueues function to change active Queue on button click
- * @param {UserObject[]} queues to display
- * @param {UserObject} active queue in chat
+ * @param {() => void} setDisplayDelQueue function to trigger DelQueuePopup
+ * @param {boolean} displayDelQueue 
+ * @param {QueueObject[]} queues to display
+ * @param {QueueObject} active queue in chat
  * @param {string} userId id of current logged in user (DO WE NEED TO KEEP TRACK OF THIS? DIDNT GET PASSED THRU IN CHATBOOK)
- * @param {(UserObject) => ()} setActiveQueue function that takes in queue, sets it to active
+ * @param {(QueueObject) => ()} setActiveQueue function that takes in queue, sets it to active
  */
 const QueueList = (props) => {
   return (
@@ -77,7 +81,19 @@ const QueueList = (props) => {
           active={name === props.active}
         />
       ))}
-      <NewQueueInput defaultText="New Queue Name" onSubmit={(name, num) => {post("/api/newqueue", {name: name, playersPerTeam: Number(num)})}} />
+      <NewQueueInput
+        defaultText="New Queue Name"
+        onSubmit={(name, num) => {
+          post("/api/newqueue", { name: name, playersPerTeam: Number(num) });
+        }}
+      />
+      <br></br>
+      <button 
+        className="SingleQueue-button"
+        onClick={() => {props.setDisplayDelQueue(true)}}
+      >
+        Delete Queue
+      </button>
     </>
   );
 };
