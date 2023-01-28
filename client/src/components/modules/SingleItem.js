@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import "./SingleItem.css";
+import { post } from "../../utilities";
 
 /**
  * Renders a single chat message
@@ -17,7 +18,7 @@ const SingleItem = (props) => {
 
   const handleItemDel = (event) => {
     event.preventDefault();
-    console.log("handleItemDel not implemented");
+    post("/api/delitem", {active: props.isActiveGame, index: Number(props.position)-1, gametype: props.active});
   };
 
   return (

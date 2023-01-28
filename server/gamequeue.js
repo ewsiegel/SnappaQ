@@ -133,6 +133,28 @@ class GameQueue {
         this.activeGame = {'team1': null, 'team2': null, 'id': null, 'timestamp': null};
     }
 
+    delGameItem(index) {
+        let old_id = this.activeGame.id;
+        if (index === 0 && this.activeGame.team1 !== null) {
+            this.activeGame = {'team1': this.activeGame.team2, 'team2': null, 'id': null, 'timestamp': null};
+        }
+        else if (index === 1) {
+            this.activeGame = {'team1': this.activeGame.team1, 'team2': null, 'id': null, 'timestamp': null};
+        }
+        else {
+            throw new Error(`Unexpected input in delGame: ${index}`);
+        }
+        if (old_id !== null) {
+            Game.deleteOne({id: old_id});
+        }
+        this.tryDequeue();
+        this.tryActivateGame();
+    }
+
+    delQueueItem(index) {
+        this.queue.deleteItem(index);
+    }
+
 }
 
 module.exports = GameQueue;

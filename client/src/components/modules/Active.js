@@ -48,7 +48,7 @@ const Active = (props) => {
     <div className="u-flexColumn u-flex-alignCenter ActiveQueue-container">
     {/* <div className="ActiveQueue-container"> */}
       <h3>{style_name(props.name)}</h3>
-      <ActiveGame data={props.activeData} />
+      <ActiveGame data={props.activeData} active={props.name}/>
       <div className="Active-endGameButtonContainer">
         <button
           type="endGame"

@@ -33,7 +33,7 @@ const ActiveQueue = (props) => {
       <h3>Queue</h3>
       <div className="Active-oldItemContainer">
         {Array.from(props.data.items.entries()).map(([i, obj]) => (
-          <SingleItem key={i} position={obj.position} players={obj.players} />
+          <SingleItem key={i} position={obj.position} players={obj.players} isActiveGame={false} active={props.active} />
         ))}
       </div>
       <div className="Active-newItemContainer">
