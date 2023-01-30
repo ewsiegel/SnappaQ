@@ -12,8 +12,9 @@ import { post } from "../../utilities";
 const SingleItem = (props) => {
 
   const handleItemEdit = (event) => {
+    props.setDisplayEditItem(true);
     event.preventDefault();
-    console.log("handleItemEdit not implemented");
+    console.log("handleItemEdit called");
   };
 
   const handleItemDel = (event) => {

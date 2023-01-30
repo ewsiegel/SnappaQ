@@ -11,6 +11,7 @@ const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.goo
  * @param {QueueObject[]} queues to display
  * @param {() => void} setDisplayDelQueue function to trigger DelQueuePopup
  * @param {UserObj} userId of logged-in user
+ * @param {boolean} trigger
  */
 
 const DelQueuePopup = (props) => {

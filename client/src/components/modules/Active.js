@@ -20,35 +20,39 @@ function style_name(name) {
  *
  * Proptypes
  * @param {} name of queue to displey
- * @param {} 
+ * @param {() => {}} setDisplayEditItem function to trigger Edit Item popup
  * @param {}
  */
 
 const Active = (props) => {
-
   const handleTeam1Wins = (event) => {
     console.log("game over");
     event.preventDefault();
-    post("/api/completegame", {gametype: props.name.toLowerCase(), winner: 1});
+    post("/api/completegame", { gametype: props.name.toLowerCase(), winner: 1 });
   };
 
   const handleTeam2Wins = (event) => {
     console.log("game over");
     event.preventDefault();
-    post("/api/completegame", {gametype: props.name.toLowerCase(), winner: 2});
+    post("/api/completegame", { gametype: props.name.toLowerCase(), winner: 2 });
   };
 
   const handleClearAll = (event) => {
     console.log("clearing all");
     event.preventDefault();
-    post("/api/clearqueue", {gametype: props.name.toLowerCase()});
-  }
+    post("/api/clearqueue", { gametype: props.name.toLowerCase() });
+  };
 
   return (
     <div className="u-flexColumn u-flex-alignCenter ActiveQueue-container">
-    {/* <div className="ActiveQueue-container"> */}
+      {/* <div className="ActiveQueue-container"> */}
       <h3>{style_name(props.name)}</h3>
-      <ActiveGame data={props.activeData} active={props.name} profiles={props.profiles}/>
+      <ActiveGame
+        data={props.activeData}
+        active={props.name}
+        profiles={props.profiles}
+        setDisplayEditItem={props.setDisplayEditItem}
+      />
       <div className="Active-endGameButtonContainer">
         <button
           type="endGame"
@@ -67,7 +71,12 @@ const Active = (props) => {
           Team 2 Wins
         </button>
       </div>
-      <ActiveQueue data={props.data} active={props.name} profiles={props.profiles} />
+      <ActiveQueue 
+        data={props.data}
+        active={props.name}
+        profiles={props.profiles}
+        setDisplayEditItem={props.setDisplayEditItem}
+      />
       <div className="Active-clearQueueButtonContainer">
         <button
           type="clearAll"

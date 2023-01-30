@@ -59,7 +59,10 @@ const NewItemInput = (props) => {
  * New Item is a New Item component for messages
  *
  * Proptypes
- * @param {QueueData} data is the intended recipient
+ * @param {} players
+ * @param {QueueObj} active queue
+ * @param {} profiles
+ * @param {}
  */
 const NewItem = (props) => {
   const addItem = (players) => {

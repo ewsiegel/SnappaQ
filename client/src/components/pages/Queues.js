@@ -7,9 +7,9 @@ import "../../utilities.css";
 import "./Queues.css";
 import { socket } from "../../client-socket.js";
 import { get, post } from "../../utilities";
+import EditItemPopup from "../modules/EditItemPopup.js";
 
 const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.googleusercontent.com";
-
 
 /**
  * Page component to display when at the "/chat" route
@@ -53,7 +53,7 @@ const Queues = (props) => {
 
   function formatProfiles(profiles) {
     return profiles.map((obj) => {
-      return {value: obj.id, label: obj.name, /*wins: obj.wins, losses: obj.losses*/};
+      return { value: obj.id, label: obj.name /*wins: obj.wins, losses: obj.losses*/ };
     });
   }
 
@@ -73,7 +73,7 @@ const Queues = (props) => {
   function queryProfiles() {
     get("/api/profiles").then((profiles) => {
       updateProfiles(profiles);
-    })
+    });
   }
 
   const [activeQueue, setActiveQueue] = useState("snappa");
@@ -81,13 +81,14 @@ const Queues = (props) => {
   const [profiles, setProfiles] = useState(null);
 
   const [displayDelQueue, setDisplayDelQueue] = useState(false);
+  const [displayEditItem, setDisplayEditItem] = useState(false);
 
   function updateActiveQueueData(queuedata) {
     setQueuesData(queueDataToProp(queuedata));
   }
 
   function loadActiveQueueHistory(gametype) {
-    get("/api/queue", {gametype: gametype}).then((queuedata) => {
+    get("/api/queue", { gametype: gametype }).then((queuedata) => {
       updateActiveQueueData(queuedata);
     });
   }
@@ -108,7 +109,7 @@ const Queues = (props) => {
     return () => {
       socket.off("queues", setActiveQueues);
     };
-  }, [])
+  }, []);
 
   useEffect(() => {
     queryProfiles();
@@ -116,7 +117,7 @@ const Queues = (props) => {
     return () => {
       socket.off("queues", updateProfiles);
     };
-  }, [])
+  }, []);
 
   if (!props.userId) {
     return <div>Log in before using SnappaQ</div>;
@@ -124,39 +125,47 @@ const Queues = (props) => {
   if (queuesData === null || activeQueues == null || profiles == null) {
     return <div>Loading</div>;
   }
-  return (!displayDelQueue) ? (
-    <>
-      <div className="u-flex u-relative Queues-container">
-        <div className="Queues-queueList">
-          <QueueList
-            setActiveQueue={setActiveQueue}
-            setDisplayDelQueue={setDisplayDelQueue}
-            displayDelQueue={displayDelQueue}
-            userId={props.userId}
-            queues={activeQueues}
-            active={activeQueue}
-          />
-        </div>
-        <div className="Queues-queueContainer u-relative">
-          <Active
-            name={activeQueue}
-            activeData={queuesData.activeData}
-            data={queuesData.data}
-            profiles={profiles}
-          />
-        </div>
-        
-      </div>
-    </>
-  ) : (
-    <DelQueuePopup 
-      trigger={displayDelQueue} 
+  // return (displayDelQueue) ? (<>1</>) : (displayEditItem) ? (<>2</>) : (<>3</>)
+  return displayDelQueue ? (
+    <DelQueuePopup
+      trigger={displayDelQueue}
       setDisplayDelQueue={setDisplayDelQueue}
-      userId={props.userID} 
+      userId={props.userID}
       queues={activeQueues}
     >
-          <h3>My Popup</h3>
+      <h3>Del Queue Popup</h3>
     </DelQueuePopup>
+  ) : displayEditItem ? (
+    <EditItemPopup
+      trigger={displayEditItem}
+      setDisplayEditItem={setDisplayEditItem}
+      userId={props.userID}
+      item={null}
+    >
+      <h3>Edit Item Popup</h3>
+    </EditItemPopup>
+  ) : (
+    <div className="u-flex u-relative Queues-container">
+      <div className="Queues-queueList">
+        <QueueList
+          setActiveQueue={setActiveQueue}
+          setDisplayDelQueue={setDisplayDelQueue}
+          displayDelQueue={displayDelQueue}
+          userId={props.userId}
+          queues={activeQueues}
+          active={activeQueue}
+        />
+      </div>
+      <div className="Queues-queueContainer u-relative">
+        <Active
+          name={activeQueue}
+          activeData={queuesData.activeData}
+          data={queuesData.data}
+          profiles={profiles}
+          setDisplayEditItem={setDisplayEditItem}
+        />
+      </div>
+    </div>
   );
 };
 
