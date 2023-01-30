@@ -3,11 +3,11 @@ import React, { useState, useEffect, createContext } from "react";
 import Active from "../modules/Active.js";
 import QueueList from "../modules/QueueList.js";
 import DelQueuePopup from "../modules/DelQueuePopup.js";
+import EditItemPopup from "../modules/EditItemPopup.js";
 import "../../utilities.css";
 import "./Queues.css";
 import { socket } from "../../client-socket.js";
 import { get, post } from "../../utilities";
-import EditItemPopup from "../modules/EditItemPopup.js";
 
 const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.googleusercontent.com";
 
@@ -82,6 +82,7 @@ const Queues = (props) => {
 
   const [displayDelQueue, setDisplayDelQueue] = useState(false);
   const [displayEditItem, setDisplayEditItem] = useState(false);
+  const [itemToEdit, setItemToEdit] = useState(null);
 
   function updateActiveQueueData(queuedata) {
     setQueuesData(queueDataToProp(queuedata));
@@ -163,6 +164,7 @@ const Queues = (props) => {
           data={queuesData.data}
           profiles={profiles}
           setDisplayEditItem={setDisplayEditItem}
+          setItemToEdit={setItemToEdit}
         />
       </div>
     </div>

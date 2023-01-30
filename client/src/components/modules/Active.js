@@ -52,6 +52,7 @@ const Active = (props) => {
         active={props.name}
         profiles={props.profiles}
         setDisplayEditItem={props.setDisplayEditItem}
+        setItemToEdit={props.setItemToEdit}
       />
       <div className="Active-endGameButtonContainer">
         <button
@@ -76,6 +77,7 @@ const Active = (props) => {
         active={props.name}
         profiles={props.profiles}
         setDisplayEditItem={props.setDisplayEditItem}
+        setItemToEdit={props.setItemToEdit}
       />
       <div className="Active-clearQueueButtonContainer">
         <button

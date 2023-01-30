@@ -7,14 +7,23 @@ import { post } from "../../utilities";
  * Renders a single chat message
  *
  * Proptypes
- * @param {ItemObject} item
+ * @param {} itemID WHY NOT WORKING
+ * @param {} position
+ * @param {} players
+ * @param {boolean} isActiveGame
+ * @param {} active
+ * @param {} profiles
+ * @param {} setDisplayEditItem
+ * @param {} setItemToEdit
  */
 const SingleItem = (props) => {
 
   const handleItemEdit = (event) => {
+    props.setItemToEdit(props.itemID)
     props.setDisplayEditItem(true);
     event.preventDefault();
     console.log("handleItemEdit called");
+    console.log("Item to edit: ", props.itemID);
   };
 
   const handleItemDel = (event) => {
