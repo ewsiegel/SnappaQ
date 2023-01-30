@@ -126,7 +126,6 @@ const Queues = (props) => {
   if (queuesData === null || activeQueues == null || profiles == null) {
     return <div>Loading</div>;
   }
-  // return (displayDelQueue) ? (<>1</>) : (displayEditItem) ? (<>2</>) : (<>3</>)
   return displayDelQueue ? (
     <DelQueuePopup
       trigger={displayDelQueue}
