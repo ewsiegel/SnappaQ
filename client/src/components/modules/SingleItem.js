@@ -19,11 +19,12 @@ import { post } from "../../utilities";
 const SingleItem = (props) => {
 
   const handleItemEdit = (event) => {
-    props.setItemToEdit(props.itemID)
+    let itemToEdit = {active: props.isActiveGame, index: Number(props.position) - 1, currentPlayers: props.players};
+    props.setItemToEdit(itemToEdit)
     props.setDisplayEditItem(true);
     event.preventDefault();
     console.log("handleItemEdit called");
-    console.log("Item to edit: ", props.itemID);
+    console.log("Item to edit: ", itemToEdit);
   };
 
   const handleItemDel = (event) => {

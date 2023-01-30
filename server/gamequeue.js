@@ -161,7 +161,7 @@ class GameQueue {
             this.activeGame = {'team1': team, 'team2': this.activeGame.team2, 'id': null, 'timestamp': null};
         }
         else if (index === 1) {
-            this.activeGame = {'team1': this.activeGame.team2, 'team2': team, 'id': null, 'timestamp': null};
+            this.activeGame = {'team1': this.activeGame.team1, 'team2': team, 'id': null, 'timestamp': null};
         }
         else {
             throw new Error(`Unexpected index input in editGameItem: ${index}`);

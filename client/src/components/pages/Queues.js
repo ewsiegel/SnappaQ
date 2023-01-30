@@ -139,8 +139,12 @@ const Queues = (props) => {
     <EditItemPopup
       trigger={displayEditItem}
       setDisplayEditItem={setDisplayEditItem}
-      userId={props.userID}
-      item={null}
+      userId={props.userId}
+      profiles={profiles}
+      index={itemToEdit.index}
+      active={itemToEdit.active}
+      currentPlayers={itemToEdit.currentPlayers}
+      gametype={activeQueue}
     >
       <h3>Edit Item Popup</h3>
     </EditItemPopup>
