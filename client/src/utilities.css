@@ -18,14 +18,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
 :root {
-  --primary: #b22117;
-  --primary--dim: #bed3f0;
+  --primary: #0080b0;
+  --primary--dim: #e0edf5;
   --darkgrey: #d4d4d4;
   --medgrey: #e0e0e0;
   --grey: #f7f7f7;
   --white: #fff;
   --green: rgb(168, 207, 158);
   --red: rgb(251, 157, 157);
+  --yellow: #fecc4d;
 
   --xs: 4px;
   --s: 8px;
