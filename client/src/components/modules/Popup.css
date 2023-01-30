@@ -1,4 +1,4 @@
-.DelQueuePopup-container {
+.Popup-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +11,7 @@
   align-items: center;
 }
 
-.DelQueuePopup-inner {
+.Popup-inner {
   position: relative;
   padding: 32px;
   width: 25%;
@@ -19,18 +19,18 @@
   background-color: var(--white);
 }
 
-.DelQueuePopup-inner .close-btn {
+.Popup-inner .close-btn {
   position: absolute;
   top: 16px;
   right: 16px;
 }
 
-.DelQueuePopup-queueList {
+.Popup-queueList {
   flex: 0 0 220px;
   margin-right: var(--l);
 }
 
-.DelQueuePopup-queueContainer {
+.Popup-queueContainer {
   flex-grow: 1;
   overflow-x: hidden;
 }
