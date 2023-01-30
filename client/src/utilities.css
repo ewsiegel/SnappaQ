@@ -15,10 +15,10 @@
 */
 
 /* TODO: REPLACE WITH YOUR OWN FONT! */
-@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
 :root {
-  --primary: #0f7df0;
+  --primary: #b22117;
   --primary--dim: #bed3f0;
   --darkgrey: #d4d4d4;
   --medgrey: #e0e0e0;
@@ -37,8 +37,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
 }
 
 form {
