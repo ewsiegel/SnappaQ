@@ -155,6 +155,28 @@ class GameQueue {
         this.queue.deleteItem(index);
     }
 
+    editGameItem(index, team) {
+        let old_id = this.activeGame.id;
+        if (index === 0) {
+            this.activeGame = {'team1': team, 'team2': this.activeGame.team2, 'id': null, 'timestamp': null};
+        }
+        else if (index === 1) {
+            this.activeGame = {'team1': this.activeGame.team1, 'team2': team, 'id': null, 'timestamp': null};
+        }
+        else {
+            throw new Error(`Unexpected index input in editGameItem: ${index}`);
+        }
+        if (old_id !== null) {
+            Game.deleteOne({id: old_id});
+        }
+        this.tryDequeue();
+        this.tryActivateGame();
+    }
+
+    editQueueItem(index, team) {
+        this.queue.editItem(index, team);
+    }
+
 }
 
 module.exports = GameQueue;

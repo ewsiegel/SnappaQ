@@ -17,6 +17,7 @@ const DelQueueList = (props) => {
     <>
       {/* <h3 className={"SingleQueue-header"}></h3> */}
       {Array.from(props.queues.entries()).map(([i, name]) => (
+        // Snappa is not able to be deleted
         (name !== "snappa") ? (
           <DelSingleQueue
             key={i}

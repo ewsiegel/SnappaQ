@@ -42,6 +42,9 @@ class Queue {
       this.items = new_items;
       this.rear--;
     }
+    editItem(index, val) {
+      this.items[this.front+index] = val;
+    }
 }
 
 module.exports = Queue;
