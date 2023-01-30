@@ -89,7 +89,7 @@ const QueueList = (props) => {
       />
       <br></br>
       <button 
-        className="SingleQueue-button"
+        className="SingleQueue-btn"
         onClick={() => {props.setDisplayDelQueue(true)}}
       >
         Delete Queue

@@ -20,7 +20,7 @@
   background: var(--primary--dim);
 }
 
-.SingleQueue-button {
+.SingleQueue-btn {
   color: var(--primary);
   border: var(--primary) 1px solid;
   border-radius: 0 var(--xs) var(--xs) 0;
@@ -30,9 +30,9 @@
   width: 100%;
 }
 
-.SingleQueue-button:hover {
+.SingleQueue-btn:hover {
   color: var(--white);
-  background-color: var(--primary);
+  background-color: var(--red);
 }
 
 .SingleQueue-delQueueButton {
