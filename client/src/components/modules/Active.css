@@ -4,9 +4,14 @@
 }
 
 .Active-header {
-  background-color: var(--primary);
-  color: var(--white);
+  font-size: 1.5em;
+  /* width: 100%; */
+  font-style: oblique;
+  /* background-color: var(--primary--dim); */
+  border-radius: 1em;
+  color: var(--yellow);
   padding: var(--xs) var(--s);
+  margin: var(--xl) 0px 0px 0px;
 }
 
 .Active-newItemContainer {
