@@ -136,6 +136,15 @@ router.post("/delitem", (req, res) => {
   res.send({});
 });
 
+router.post("/edititem", (req, res) => {
+  if (req.body.active)
+    state.queues[req.body.gametype].editGameItem(Number(req.body.index), req.body.team);
+  else
+    state.queues[req.body.gametype].editQueueItem(Number(req.body.index), req.body.team);
+  emitGameState(req.body.gametype);
+  res.send({});
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
