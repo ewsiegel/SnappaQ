@@ -15,7 +15,7 @@ const NavBar = (props) => {
     <nav className="NavBar-container">
       {/* <img className="NavBar-logo" src={die_image} alt="die" /> */}
       <div className="NavBar-title u-inlineBlock">Snappa</div>
-      <div className="NavBar-title-red u-inlineBlock">Q</div>
+      <div className="NavBar-title-yellow u-inlineBlock">Q</div>
       <div className="NavBar-linkContainer u-inlineBlock">
         <Link to="/" className="NavBar-link" >
           Queues

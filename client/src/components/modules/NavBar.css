@@ -9,8 +9,8 @@
     font-weight: light;
   }
 
-  .NavBar-title-red {
-    color: #ffa4a4;
+  .NavBar-title-yellow {
+    color: var(--yellow);
     font-size: 20px;
     font-weight: bolder;
   }
