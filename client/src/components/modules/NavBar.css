@@ -38,6 +38,7 @@
 }
 
 .NavBar-logoutButton {
+  font-size: small;
   height: 2.5vh;
 }
 
