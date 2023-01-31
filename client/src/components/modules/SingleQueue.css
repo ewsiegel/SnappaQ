@@ -53,6 +53,7 @@
 
 .NewQueueInput-button {
   flex: 1;
+  font-size: medium;
 }
 
 /* .QueueList-link {

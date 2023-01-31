@@ -48,6 +48,10 @@ form {
   flex-grow: 1;
 }
 
+button {
+  font-size: medium;
+}
+
 .u-flex {
   display: flex;
 }

@@ -5,7 +5,7 @@
 }
 
 .Active-header {
-  font-size: 1.5em;
+  /* font-size: xx-large; */
   /* width: 100%; */
   font-style: oblique;
   /* background-color: var(--primary--dim); */
@@ -34,7 +34,7 @@
 }
 
 .Active-endGameButton {
-  font-size: 14px;
+  /* font-size: 14px; */
   padding: var(--s) var(--m);
   background-color: var(--primary--dim);
   flex-grow: 1;
@@ -49,7 +49,7 @@
 }
 
 .Active-clearQueueButton {
-  font-size: 14px;
+  /* font-size: 14px; */
   padding: var(--s) var(--m);
   background-color: var(--primary--dim);
   flex-grow: 1;

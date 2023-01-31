@@ -31,7 +31,7 @@ const ActiveQueue = (props) => {
   return (
     <>
       <br></br>
-      <h3>Queue</h3>
+      <h3 className="Active-sectionHeader">Queue</h3>
       <div className="Active-oldItemContainer">
         {Array.from(props.data.items.entries()).map(([i, obj]) => (
           <SingleItem key={i} position={obj.position} players={obj.players} isActiveGame={false} active={props.active} profiles={props.profiles} setDisplayEditItem={props.setDisplayEditItem} setItemToEdit={props.setItemToEdit}/>

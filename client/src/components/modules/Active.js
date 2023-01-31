@@ -46,7 +46,7 @@ const Active = (props) => {
   return (
     <div className="u-flexColumn u-flex-alignCenter ActiveQueue-container">
       {/* <div className="ActiveQueue-container"> */}
-      <h3 className="Active-header">{style_name(props.name).toUpperCase()}</h3>
+      <h2 className="Active-header">{style_name(props.name).toUpperCase()}</h2>
       <ActiveGame
         data={props.activeData}
         active={props.name}

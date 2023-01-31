@@ -1,10 +1,13 @@
 import React from 'react';
 import Select from 'react-select';
 
+import "./Dropdown.css";
+
 const PlayerDropdown = (props) => {
   return (
     <form>
       <Select
+        className="Dropdown-container"
         aria-labelledby="playerdropdown-label"
         inputId="player-input"
         name="player-dropdown"

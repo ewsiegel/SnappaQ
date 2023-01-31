@@ -1,7 +1,7 @@
 .NewItemInput-item,
 .NewItemInput-button {
   font-family: "Open Sans";
-  font-size: 14px;
+  /* font-size: 14px; */
   padding: var(--s) var(--m);
 }
 
