@@ -40,6 +40,21 @@
   /* TODO */
 }
 
+.NewQueueInput-container {
+  /* max-width: 20vh; */
+  display: flex;
+  margin-bottom: var(--s);
+}
+
+.NewQueueInput-input {
+  flex: 3;
+  min-width: 0;
+}
+
+.NewQueueInput-button {
+  flex: 1;
+}
+
 /* .QueueList-link {
   color: var(--red);
 } */

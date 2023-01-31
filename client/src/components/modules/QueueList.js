@@ -29,7 +29,7 @@ const NewQueueInput = (props) => {
   };
 
   return (
-    <div className="u-flex">
+    <div className="u-flex NewQueueInput-container">
       <input
         type="text"
         placeholder={props.defaultText}
@@ -42,10 +42,11 @@ const NewQueueInput = (props) => {
         placeholder={1}
         value={num}
         onChange={handleChangeNum}
-        className="NewQueueInput-inputNum"
+        className="NewQueueInput-input"
       />
       <button
         type="submit"
+        // className="u-pointer"
         className="NewQueueInput-button u-pointer"
         value="Submit"
         onClick={handleSubmit}
@@ -87,7 +88,6 @@ const QueueList = (props) => {
           post("/api/newqueue", { name: name, playersPerTeam: Number(num) });
         }}
       />
-      <br></br>
       <button 
         className="SingleQueue-btn"
         onClick={() => {props.setDisplayDelQueue(true)}}

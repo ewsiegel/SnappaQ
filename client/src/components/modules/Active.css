@@ -1,5 +1,6 @@
 .Active-container {
   height: 100%;
+  /* width: 10%; */
   /* max-width: 75%; */
 }
 
@@ -29,6 +30,7 @@
 
 .Active-endGameButtonContainer {
   height: auto;
+  width: 25%;
 }
 
 .Active-endGameButton {
