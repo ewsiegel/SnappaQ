@@ -66,7 +66,7 @@ router.get("/profiles", (req, res) => {
 });
 
 function sendGameState(res, gametype) {
-  res.send({gameType: gametype, activeGame: state.queues[gametype].activeGame, queue: state.queues[gametype].queue.list});
+  res.send({gameType: gametype, activeGame: state.queues[gametype].activeGame, queue: state.queues[gametype].queue.list, playersPerTeam: state.queues[gametype].numPlayersPerTeam});
 };
 
 function emitGameState(gametype) {
@@ -74,7 +74,8 @@ function emitGameState(gametype) {
     if (activegame === gametype)
       socketManager.getSocketFromUserID(userid).emit("gameState", {gameType: state.queues[gametype].gameName, 
                                                                    activeGame: state.queues[gametype].activeGame, 
-                                                                   queue: state.queues[gametype].queue.list});
+                                                                   queue: state.queues[gametype].queue.list,
+                                                                   playersPerTeam: state.queues[gametype].numPlayersPerTeam});
   });
 };
 

@@ -47,6 +47,7 @@ const Queues = (props) => {
           return { position: queuedata.queue.indexOf(players) + 1, players: players };
         }),
       },
+      playersPerTeam: queuedata.playersPerTeam
     };
     return queuesDataObj;
   }
@@ -145,6 +146,7 @@ const Queues = (props) => {
       active={itemToEdit.active}
       currentPlayers={itemToEdit.currentPlayers}
       gametype={activeQueue}
+      playersPerTeam={queuesData.playersPerTeam}
     >
       <h3>Edit Item Popup</h3>
     </EditItemPopup>
@@ -168,6 +170,7 @@ const Queues = (props) => {
           profiles={profiles}
           setDisplayEditItem={setDisplayEditItem}
           setItemToEdit={setItemToEdit}
+          playersPerTeam={queuesData.playersPerTeam}
         />
       </div>
     </div>

@@ -135,8 +135,9 @@ class GameQueue {
 
     delGameItem(index) {
         let old_id = this.activeGame.id;
-        if (index === 0 && this.activeGame.team1 !== null) {
-            this.activeGame = {'team1': this.activeGame.team2, 'team2': null, 'id': null, 'timestamp': null};
+        if (index === 0) {
+            if (this.activeGame.team1 !== null)
+                this.activeGame = {'team1': this.activeGame.team2, 'team2': null, 'id': null, 'timestamp': null};
         }
         else if (index === 1) {
             this.activeGame = {'team1': this.activeGame.team1, 'team2': null, 'id': null, 'timestamp': null};
