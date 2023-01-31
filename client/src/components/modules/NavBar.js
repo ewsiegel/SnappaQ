@@ -12,11 +12,17 @@ const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.goo
 
 const NavBar = (props) => {
   return (
-    <nav className="NavBar-container">
+    <nav className="NavBar-container u-flex">
       {/* <img className="NavBar-logo" src={die_image} alt="die" /> */}
-      <div className="NavBar-title u-inlineBlock">Snappa</div>
-      <div className="NavBar-title-yellow u-inlineBlock">Q</div>
-      <div className="NavBar-linkContainer u-inlineBlock">
+      <div className="NavBar-titleContainer">
+        <div className="NavBar-title">Snappa</div>
+        {/* <div className="NavBar-title u-inlineBlock">Snappa</div> */}
+        <div className="NavBar-title-yellow">Q</div>
+        {/* <div className="NavBar-title-yellow u-inlineBlock">Q</div> */}
+        <div className="NavBar-linkContainer">
+      </div>
+      
+      {/* <div className="NavBar-linkContainer u-inlineBlock"> */}
         <Link to="/" className="NavBar-link" >
           Queues
         </Link>
@@ -26,6 +32,7 @@ const NavBar = (props) => {
         <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
           {props.userId ? (
             <button
+              className="NavBar-logoutButton"
               onClick={() => {
                 googleLogout();
                 props.handleLogout();

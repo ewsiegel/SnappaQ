@@ -5,6 +5,11 @@
   background-color: var(--primary);
   height: 5vh;
   vertical-align: middle;
+  display: flex;
+}
+.NavBar-titleContainer {
+  display: flex;
+  align-items: center;
 }
 
 .NavBar-title {
@@ -17,15 +22,23 @@
   color: var(--yellow);
   font-size: 3vh;
   font-weight: bolder;
+  align-items: center;
+
 }
 
 .NavBar-linkContainer {
   /* float: right; */
-  vertical-align: middle;
+  /* vertical-align: middle; */
   font-size: 2.5vh;
   /* align-items: center; */
   margin-left: var(--l);
+  display: flex;
+  align-items: center;
   /* overflow: hidden; */
+}
+
+.NavBar-logoutButton {
+  height: 2.5vh;
 }
 
 .NavBar-link,
