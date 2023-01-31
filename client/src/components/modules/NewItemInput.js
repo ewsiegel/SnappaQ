@@ -10,34 +10,43 @@ import PlayerDropdown from "./Dropdown";
  * @param {({storyId, value}) => void} onSubmit: (function) triggered when this post is submitted, takes {storyId, value} as parameters
  */
 const NewItemInput = (props) => {
-    const [player1, setPlayer1] = useState(props.default1.value);
-    const [player2, setPlayer2] = useState(props.default2.value);
+
+    const [players, setPlayers] = useState(null);
   
-    let ref1 = useRef(null);
-    let ref2 = useRef(null);
+    let refs = useRef(new Array(props.playersPerTeam).fill(null));
+
+    useEffect(() => {
+      for (var index = 0; index<props.playersPerTeam; index++) {
+        if (refs.current[index] != null)
+          refs.current[index].setValue(props.defaults[index]);
+      }
+      setPlayers(props.defaults.map(obj => obj.value))
+    }, [props.defaults]);
+
+    const handleChange = (select, index) => {
+      let arr = [...players];
+      arr[index] = select.value;
+      setPlayers(arr);
+    }
   
-    // called whenever the user types in the new item input box
-    // pretty sure this can remain unchanged
-    const handleChange1 = (select) => {
-      setPlayer1(select.value);
-    };
-    const handleChange2 = (select) => {
-      setPlayer2(select.value);
-    };
-  
-    // called when the user hits "Submit" for a new item
-    // pretty sure this can remain unchanged
     const handleSubmit = (event) => {
       event.preventDefault();
-      props.onSubmit && props.onSubmit([player1, player2]);
-      ref1.current.setValue(props.default1);
-      ref2.current.setValue(props.default2);
+      props.onSubmit && props.onSubmit(players);
+      for (var index = 0; index<props.playersPerTeam; index++) {
+        refs.current[index].setValue(props.defaults[index]);
+      }
+      setPlayers(props.defaults.map(obj => obj.value));
     };
+
+    if (players === null) {
+      return <div>Loading</div>;
+    }
     return (
       <>
       <div className="u-flex">
-        <PlayerDropdown innerRef={ref1} handler={handleChange1} profiles={props.profiles} default={props.default1}/>
-        <PlayerDropdown innerRef={ref2} handler={handleChange2} profiles={props.profiles} default={props.default2}/>
+        {[...Array(props.playersPerTeam).keys()].map((index) => {
+          return <PlayerDropdown key={index} index={index} innerRef={refs} handler={(select) => handleChange(select, index)} profiles={props.profiles} default={props.defaults[index]}/>
+        })}
         <button
           type="submit"
           className="NewItemInput-button u-pointer"

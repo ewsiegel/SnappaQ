@@ -37,7 +37,7 @@ const ActiveQueue = (props) => {
         ))}
       </div>
       <div className="Active-newItemContainer">
-        <NewItem /*players={props.data}*/ active={props.active} profiles={props.profiles} />
+        <NewItem active={props.active} profiles={props.profiles} playersPerTeam={props.playersPerTeam} />
       </div>
     </>
   );

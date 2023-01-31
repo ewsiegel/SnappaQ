@@ -78,6 +78,7 @@ const Active = (props) => {
         profiles={props.profiles}
         setDisplayEditItem={props.setDisplayEditItem}
         setItemToEdit={props.setItemToEdit}
+        playersPerTeam={props.playersPerTeam}
       />
       <div className="Active-clearQueueButtonContainer">
         <button

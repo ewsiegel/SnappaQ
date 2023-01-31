@@ -10,7 +10,7 @@ const PlayerDropdown = (props) => {
         name="player-dropdown"
         options={[{value: "", label: "Need 1"}].concat(props.profiles)}
         onChange={props.handler}
-        ref={props.innerRef}
+        ref={(element) => props.innerRef.current[props.index] = element}
         defaultValue={props.default}
       />
     </form>
