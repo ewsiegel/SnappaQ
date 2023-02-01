@@ -53,10 +53,10 @@ const Profile = (props) => {
       <div className="Profile-header">{profileData.name}</div>
       {/* <h1>{JSON.stringify(profileData.wins, null, 2)}</h1> */}
       <div className="Profile-statContainer">
-        <SingleStat name={"Game Type"} wins={"Wins"} total={"Games Played"}/>
+        <SingleStat name={"Game Type"} wins={"Wins"} total={"Games Played"} />
         {Array.from(Object.entries(profileData.wins)).map(([i, obj]) => (
-            <SingleStat key={i} name={i} wins={obj} total={obj + profileData.losses.i}/>
-            // <SingleStat key={i} name={i} wins={obj} total={TODO}/>
+          <SingleStat key={i} name={i} wins={obj} total={(profileData.losses[i] ?? 0) + obj} />
+          // <SingleStat key={i} name={i} wins={obj} total={TODO}/>
         ))}
       </div>
       {/* <table className="Profile-statContainer">
