@@ -9,16 +9,18 @@
 
 .SingleStat-gameName {
   /* TODO */
-  margin-left: 1vw;
+  width: 15vw;
   font-weight: bold;
-  width: 100px;
+  text-align: center;
 }
 .SingleStat-wins {
   /* TODO */
-  margin-left: 100px;
+  width: 10vw;
   color: var(--green);
+  text-align: center;
 }
 .SingleStat-total {
   /* TODO */
-  margin-left: 100px;
+  width: 10vw;
+  text-align: center;
 }

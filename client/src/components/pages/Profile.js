@@ -55,7 +55,7 @@ const Profile = (props) => {
       <div className="Profile-statContainer">
         <SingleStat name={"Game Type"} wins={"Wins"} total={"Games Played"}/>
         {Array.from(Object.entries(profileData.wins)).map(([i, obj]) => (
-            <SingleStat key={i} name={i} wins={obj}/>
+            <SingleStat key={i} name={i} wins={obj} total={obj + profileData.losses.i}/>
             // <SingleStat key={i} name={i} wins={obj} total={TODO}/>
         ))}
       </div>
