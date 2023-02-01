@@ -44,7 +44,7 @@ const Profile = (props) => {
     return (
         <>
         <div className="Profile-container">
-            <h1>{profileData.wins}</h1>
+            <h1>{JSON.stringify(profileData.wins, null, 2)}</h1>
         </div>
         </>
     );

@@ -48,13 +48,25 @@ class GameQueue {
                     console.log("Updated completed game in db");
                 });
                 this.activeGame.team1.forEach(async (player) => {
-                    Profile.findOneAndUpdate({id: player}, {$inc: {wins: 1}}).then(() => {
-                        console.log("Incremented win for", player);
+                    Profile.findOne({id: player}).then((profile) => {
+                        if (profile) {
+                            profile.wins[this.gameName] = (profile.wins[this.gameName] ?? 0) + 1;
+                            profile.markModified("wins");
+                            profile.save().then(() => {
+                                console.log("Incremented win for", player, "for game", this.gameName);
+                            });
+                        }
                     });
                 });
                 this.activeGame.team2.forEach(async (player) => {
-                    Profile.findOneAndUpdate({id: player}, {$inc: {losses: 1}}).then(() => {
-                        console.log("Incremented loss for", player);
+                    Profile.findOne({id: player}).then((profile) => {
+                        if (profile) {
+                            profile.losses[this.gameName] = (profile.losses[this.gameName] ?? 0) + 1;
+                            profile.markModified("losses");
+                            profile.save().then(() => {
+                                console.log("Incremented loss for", player, "for game", this.gameName);
+                            });
+                        }
                     });
                 });  
                 //this.activeGame.team1 = this.activeGame.team1;
@@ -68,13 +80,25 @@ class GameQueue {
                     console.log("Updated completed game in db");
                 });
                 this.activeGame.team2.forEach(async (player) => {
-                    Profile.findOneAndUpdate({id: player}, {$inc: {wins: 1}}).then(() => {
-                        console.log("Incremented win for", player);
+                    Profile.findOne({id: player}).then((profile) => {
+                        if (profile) {
+                            profile.wins[this.gameName] = (profile.wins[this.gameName] ?? 0) + 1;
+                            profile.markModified("wins");
+                            profile.save().then(() => {
+                                console.log("Incremented win for", player, "for game", this.gameName);
+                            });
+                        }
                     });
                 });
                 this.activeGame.team1.forEach(async (player) => {
-                    Profile.findOneAndUpdate({id: player}, {$inc: {losses: 1}}).then(() => {
-                        console.log("Incremented loss for", player);
+                    Profile.findOne({id: player}).then((profile) => {
+                        if (profile) {
+                            profile.losses[this.gameName] = (profile.losses[this.gameName] ?? 0) + 1;
+                            profile.markModified("losses");
+                            profile.save().then(() => {
+                                console.log("Incremented loss for", player, "for game", this.gameName);
+                            });
+                        }
                     });
                 });  
                 this.activeGame.team1 = this.activeGame.team2;
