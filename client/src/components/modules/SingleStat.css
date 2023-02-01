@@ -1,0 +1,24 @@
+.SingleStat-container {
+  margin-top: 2vh;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  justify-content: space-evenly;
+  width: 50vw;
+}
+
+.SingleStat-gameName {
+  /* TODO */
+  margin-left: 1vw;
+  font-weight: bold;
+  width: 100px;
+}
+.SingleStat-wins {
+  /* TODO */
+  margin-left: 100px;
+  color: var(--green);
+}
+.SingleStat-total {
+  /* TODO */
+  margin-left: 100px;
+}
