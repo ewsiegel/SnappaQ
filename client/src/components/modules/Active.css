@@ -51,10 +51,11 @@
 .Active-clearQueueButton {
   /* font-size: 14px; */
   padding: var(--s) var(--m);
-  background-color: var(--primary--dim);
+  background-color: var(--yellow);
   flex-grow: 1;
   align-items: center;
   width: 150px;
   padding: var(--s) var(--m);
   border-radius: var(--l);
+  margin-top: 10vh;
 }
