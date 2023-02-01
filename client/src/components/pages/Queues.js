@@ -35,19 +35,22 @@ const Queues = (props) => {
    */
 
   function queueDataToProp(queuedata) {
+    console.log(queuedata);
+    let queuedata_filtered = queuedata[activeQueue];
+    console.log(queuedata_filtered)
     let queuesDataObj = {
       activeData: {
         items: [
-          { position: 1, players: queuedata.activeGame.team1 },
-          { position: 2, players: queuedata.activeGame.team2 },
+          { position: 1, players: queuedata_filtered.activeGame.team1 },
+          { position: 2, players: queuedata_filtered.activeGame.team2 },
         ],
       },
       data: {
-        items: queuedata.queue.map((players) => {
-          return { position: queuedata.queue.indexOf(players) + 1, players: players };
+        items: queuedata_filtered.queue.map((players) => {
+          return { position: queuedata_filtered.queue.indexOf(players) + 1, players: players };
         }),
       },
-      playersPerTeam: queuedata.playersPerTeam
+      playersPerTeam: queuedata_filtered.playersPerTeam
     };
     return queuesDataObj;
   }

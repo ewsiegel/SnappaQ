@@ -66,17 +66,38 @@ router.get("/profiles", (req, res) => {
 });
 
 function sendGameState(res, gametype) {
-  res.send({gameType: gametype, activeGame: state.queues[gametype].activeGame, queue: state.queues[gametype].queue.list, playersPerTeam: state.queues[gametype].numPlayersPerTeam});
+  //res.send({gameType: gametype, activeGame: state.queues[gametype].activeGame, queue: state.queues[gametype].queue.list, playersPerTeam: state.queues[gametype].numPlayersPerTeam});
+  res.send(Object.fromEntries(
+    Array.from(
+      Object.entries(state.queues)
+    ).map(([gameName, queue]) => [gameName, {
+      gameType: queue.gameName,
+      activeGame: queue.activeGame,
+      queue: queue.queue.list,
+      playersPerTeam: queue.numPlayersPerTeam
+    }])
+  ));
 };
 
 function emitGameState(gametype) {
-  Object.entries(state.active).forEach(([userid, activegame]) => {
-    if (activegame === gametype)
-      socketManager.getSocketFromUserID(userid).emit("gameState", {gameType: state.queues[gametype].gameName, 
-                                                                   activeGame: state.queues[gametype].activeGame, 
-                                                                   queue: state.queues[gametype].queue.list,
-                                                                   playersPerTeam: state.queues[gametype].numPlayersPerTeam});
-  });
+  // Object.entries(state.active).forEach(([userid, activegame]) => {
+  //   if (activegame === gametype)
+  //     socketManager.getSocketFromUserID(userid).emit("gameState", {gameType: state.queues[gametype].gameName, 
+  //                                                                  activeGame: state.queues[gametype].activeGame, 
+  //                                                                  queue: state.queues[gametype].queue.list,
+  //                                                                  playersPerTeam: state.queues[gametype].numPlayersPerTeam});
+  // });
+  socketManager.getIo().emit("gameState", Object.fromEntries(
+                                            Array.from(
+                                              Object.entries(state.queues)
+                                            ).map(([gameName, queue]) => [gameName, {
+                                              gameType: queue.gameName,
+                                              activeGame: queue.activeGame,
+                                              queue: queue.queue.list,
+                                              playersPerTeam: queue.numPlayersPerTeam
+                                            }])
+                                          )
+  );
 };
 
 function emitQueueState() {
