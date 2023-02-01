@@ -26,19 +26,19 @@ function style_name(name) {
 
 const Active = (props) => {
   const handleTeam1Wins = (event) => {
-    console.log("game over");
+    //console.log("game over");
     event.preventDefault();
     post("/api/completegame", { gametype: props.name.toLowerCase(), winner: 1 });
   };
 
   const handleTeam2Wins = (event) => {
-    console.log("game over");
+    //console.log("game over");
     event.preventDefault();
     post("/api/completegame", { gametype: props.name.toLowerCase(), winner: 2 });
   };
 
   const handleClearAll = (event) => {
-    console.log("clearing all");
+    //console.log("clearing all");
     event.preventDefault();
     post("/api/clearqueue", { gametype: props.name.toLowerCase() });
   };
