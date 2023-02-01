@@ -14,6 +14,15 @@ function getProfileData(userid) {
     });
 }
 
+//USE THIS TO GO FROM "queue_name" to "Queue Name"
+function style_name(name) {
+    let splitted = name.split("_");
+    for (var i = 0; i < splitted.length; i++) {
+      splitted[i] = splitted[i].charAt(0).toUpperCase() + splitted[i].slice(1);
+    }
+    return splitted.join(" ");
+  }
+
 const Profile = (props) => {
 
     const [profileData,updateProfileData] = useState(null);
