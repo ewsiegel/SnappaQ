@@ -10,7 +10,7 @@ const GOOGLE_CLIENT_ID = "421107140891-uodmhhbac912d2ns75u0npip3geh3t4d.apps.goo
 
 function getProfileData(userid) {
   get("/api/profile", { userid: userid }).then((profile) => {
-    console.log(profile);
+    //console.log(profile);
     return profile;
   });
 }

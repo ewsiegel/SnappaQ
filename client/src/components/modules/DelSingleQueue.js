@@ -22,7 +22,7 @@ function style_name(name) {
 const DelSingleQueue = (props) => {
 
   const handleDelQueue = (event) => {
-    console.log("deleting queue: ", props.name);
+    //console.log("deleting queue: ", props.name);
     event.preventDefault();
     post("/api/delqueue", {name: props.name.toLowerCase()});
     props.setDisplayDelQueue(false);

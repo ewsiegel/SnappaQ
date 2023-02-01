@@ -23,8 +23,8 @@ const SingleItem = (props) => {
     props.setItemToEdit(itemToEdit)
     props.setDisplayEditItem(true);
     event.preventDefault();
-    console.log("handleItemEdit called");
-    console.log("Item to edit: ", itemToEdit);
+    //console.log("handleItemEdit called");
+    //console.log("Item to edit: ", itemToEdit);
   };
 
   const handleItemDel = (event) => {

@@ -35,9 +35,9 @@ const Queues = (props) => {
    */
 
   function queueDataToProp(queuedata) {
-    console.log(queuedata);
+    //console.log(queuedata);
     let queuedata_filtered = queuedata[activeQueue];
-    console.log(queuedata_filtered)
+    //console.log(queuedata_filtered)
     let queuesDataObj = {
       activeData: {
         items: [
