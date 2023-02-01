@@ -38,8 +38,8 @@ function createProfileIfNew(user) {
       const new_profile = new Profile({
         id: user._id,
         name: user.name,
-        wins: 0,
-        losses: 0,
+        wins: {"snappa": 0, "die": 0, "darts": 0, "pool": 0},
+        losses: {"snappa": 0, "die": 0, "darts": 0, "pool": 0},
       });
       new_profile.save().then(() => {
         Profile.find({}).then((profiles) => {
