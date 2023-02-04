@@ -79,14 +79,7 @@ function sendGameState(res, gametype) {
   ));
 };
 
-function emitGameState(gametype) {
-  // Object.entries(state.active).forEach(([userid, activegame]) => {
-  //   if (activegame === gametype)
-  //     socketManager.getSocketFromUserID(userid).emit("gameState", {gameType: state.queues[gametype].gameName, 
-  //                                                                  activeGame: state.queues[gametype].activeGame, 
-  //                                                                  queue: state.queues[gametype].queue.list,
-  //                                                                  playersPerTeam: state.queues[gametype].numPlayersPerTeam});
-  // });
+function emitGameState() {
   socketManager.getIo().emit("gameState", Object.fromEntries(
                                             Array.from(
                                               Object.entries(state.queues)
@@ -107,20 +100,20 @@ function emitQueueState() {
 //add to queue
 router.post("/appendqueue", (req, res) => {
   state.queues[req.body.gametype].append(req.body.team);
-  emitGameState(req.body.gametype);
+  emitGameState();
   res.send({});
 });
 
 //complete the current active game
 router.post("/completegame", (req, res) => {
   state.queues[req.body.gametype].completeGame(Number(req.body.winner));
-  emitGameState(req.body.gametype);
+  emitGameState();
   res.send({});
 });
 
 router.post("/clearqueue", (req, res) => {
   state.queues[req.body.gametype].clearQueue();
-  emitGameState(req.body.gametype);
+  emitGameState();
   res.send({});
 });
 
@@ -154,7 +147,7 @@ router.post("/delitem", (req, res) => {
     state.queues[req.body.gametype].delGameItem(Number(req.body.index));
   else
     state.queues[req.body.gametype].delQueueItem(Number(req.body.index));
-  emitGameState(req.body.gametype);
+  emitGameState();
   res.send({});
 });
 
@@ -163,7 +156,7 @@ router.post("/edititem", (req, res) => {
     state.queues[req.body.gametype].editGameItem(Number(req.body.index), req.body.team);
   else
     state.queues[req.body.gametype].editQueueItem(Number(req.body.index), req.body.team);
-  emitGameState(req.body.gametype);
+  emitGameState();
   res.send({});
 });
 
