@@ -5,6 +5,8 @@ const ProfileSchema = new mongoose.Schema({
   name: String,
   wins: {type: Object},
   losses: {type: Object},
+  elo: Number,
+  rankedGamesPlayed: Number
 });
 
 // compile model from schema

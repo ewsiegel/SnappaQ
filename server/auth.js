@@ -40,6 +40,8 @@ function createProfileIfNew(user) {
         name: user.name,
         wins: {"snappa": 0, "die": 0, "darts": 0, "pool": 0},
         losses: {"snappa": 0, "die": 0, "darts": 0, "pool": 0},
+        elo: 0,
+        rankedGamesPlayed: 0
       });
       new_profile.save().then(() => {
         Profile.find({}).then((profiles) => {

@@ -7,7 +7,7 @@ class GameQueue {
     constructor(gameName, numPlayersPerTeam) {
         this.numPlayersPerTeam = numPlayersPerTeam;
         this.queue = new Queue();
-        this.activeGame = {'team1': null, 'team2': null, 'id': null, 'timestamp': null};
+        this.activeGame = {'team1': null, 'team2': null, 'id': null, 'timestamp': null, 'ranked': null};
         this.gameName = gameName;
     }
 
@@ -15,11 +15,22 @@ class GameQueue {
         return this.activeGame.id !== null;
     }
 
-    tryActivateGame() {
+    async tryActivateGame() {
         if (!this.gameActive() && this.activeGame.team1 !== null && this.activeGame.team2 !== null)  {
             console.log("Starting game between", this.activeGame.team1, "and", this.activeGame.team2);
             this.activeGame.id = uuidv4();
             this.activeGame.timestamp = Date.now();
+            let isRanked = true;
+            for (const player of this.activeGame.team1.concat(this.activeGame.team2)) {
+                isRanked = this.gameName === "snappa" && await Profile.exists({id: player});
+                if (!isRanked)
+                    break;
+            }
+            if (isRanked) {
+                this.activeGame.ranked = true;
+                console.log("above game is ranked");
+            }
+            else this.activeGame.ranked = false;
             let game = new Game({
                 gameType: this.gameName,
                 gameId: this.activeGame.id,
@@ -42,6 +53,16 @@ class GameQueue {
         if (this.gameActive()) {
             console.log("Completed game between", this.activeGame.team1, "and", this.activeGame.team2);
             console.log("Winner: Team", winner);
+            if (this.activeGame.ranked) {
+                //do ELO stuff
+                //increase ranked games played by 1
+                for (const player of this.activeGame.team1.concat(this.activeGame.team2)) {
+                    Profile.findOneAndUpdate({id: player}, {$inc: {rankedGamesPlayed: 1}}).then(() => {
+                        console.log("Incremented ranked game count for", player);
+                    });
+                }
+                //TODO update ELO
+            }
             if (winner === 1) {
                 //team 1 wins, team 2 loses
                 Game.findOneAndUpdate({gameId: this.activeGame.id}, {state: "complete", winners: this.activeGame.team1, losers: this.activeGame.team2}).then(() => {
@@ -68,7 +89,7 @@ class GameQueue {
                             });
                         }
                     });
-                });  
+                }); 
                 //this.activeGame.team1 = this.activeGame.team1;
                 this.activeGame.team2 = null;
                 this.activeGame.id = null;
@@ -100,11 +121,12 @@ class GameQueue {
                             });
                         }
                     });
-                });  
+                });
                 this.activeGame.team1 = this.activeGame.team2;
                 this.activeGame.team2 = null;
                 this.activeGame.id = null;
                 this.activeGame.timestamp = null;
+                this.activeGame.ranked = null;
             }
             else {
                 throw new Error(`Unexpected input in completeGame: ${winner}`);
@@ -154,17 +176,17 @@ class GameQueue {
             Game.deleteOne({id: this.activeGame.id});
         }
         this.queue = new Queue();
-        this.activeGame = {'team1': null, 'team2': null, 'id': null, 'timestamp': null};
+        this.activeGame = {'team1': null, 'team2': null, 'id': null, 'timestamp': null, 'ranked': null};
     }
 
     delGameItem(index) {
         let old_id = this.activeGame.id;
         if (index === 0) {
             if (this.activeGame.team1 !== null)
-                this.activeGame = {'team1': this.activeGame.team2, 'team2': null, 'id': null, 'timestamp': null};
+                this.activeGame = {'team1': this.activeGame.team2, 'team2': null, 'id': null, 'timestamp': null, 'ranked': null};
         }
         else if (index === 1) {
-            this.activeGame = {'team1': this.activeGame.team1, 'team2': null, 'id': null, 'timestamp': null};
+            this.activeGame = {'team1': this.activeGame.team1, 'team2': null, 'id': null, 'timestamp': null, 'ranked': null};
         }
         else {
             throw new Error(`Unexpected input in delGame: ${index}`);
@@ -183,10 +205,10 @@ class GameQueue {
     editGameItem(index, team) {
         let old_id = this.activeGame.id;
         if (index === 0) {
-            this.activeGame = {'team1': team, 'team2': this.activeGame.team2, 'id': null, 'timestamp': null};
+            this.activeGame = {'team1': team, 'team2': this.activeGame.team2, 'id': null, 'timestamp': null, 'ranked': null};
         }
         else if (index === 1) {
-            this.activeGame = {'team1': this.activeGame.team1, 'team2': team, 'id': null, 'timestamp': null};
+            this.activeGame = {'team1': this.activeGame.team1, 'team2': team, 'id': null, 'timestamp': null, 'ranked': null};
         }
         else {
             throw new Error(`Unexpected index input in editGameItem: ${index}`);

@@ -37,7 +37,8 @@ const SingleItem = (props) => {
       return props.players.map(u => {
         if (u === "")
           return "Need 1";
-        return props.profiles.find(obj => u === obj.value).label;
+        let ranked_item = props.profiles.find(obj => u === obj.value);
+        return ranked_item ? ranked_item.label : u;
       }).join(", ");
     }
     return "Team Not Active";
